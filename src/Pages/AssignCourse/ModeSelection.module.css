@@ -1,0 +1,123 @@
+.container{
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border-radius: 12px;
+    padding: 1%;
+}
+
+.header{
+    width: 98%;
+    padding: 1%;
+    height: 8%;
+    font-size: clamp(0.7rem,0.7vw,0.8rem);
+}
+
+.body{
+    width: 98%;
+    height: 78%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.LTSCard{
+    background-color: white;
+    width: 24%;
+    padding: 0.5%;
+    border-radius: 5px;
+    border: 1px solid #F2F2F2;
+    box-shadow: 2px 2px 5px #0000001A, -2px -2px 5px #0000001A;
+}
+
+.iconContainer{
+    background-color: #28A74554;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: inherit;
+
+    svg{
+        width: 50px;
+    }
+}
+.title{
+    font-size: clamp(0.75rem,0.75vw,0.85rem);
+    padding: 2%;
+}
+
+.descri{
+    font-size: clamp(0.7rem,0.7vw,0.8rem);
+    color: #ACACAC;
+    padding: 2%;
+    height: 100px;
+}
+
+.contentContainer{
+    height: 40px;
+    padding: 1%;
+    border-bottom: 1px solid #c0c0c0b4;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    white-space: no-wrap;
+
+    span{
+        font-size: clamp(0.7rem,0.7vw,0.8rem);
+        color: #ACACAC;
+        margin-right: 4px;
+    }
+    .icons{
+        display: flex;
+        align-items: center;
+    }
+}
+
+.checkBoxContainer{
+    label{
+        color: #ACACAC;
+        margin-left: 4px;
+        font-size: clamp(0.7rem,0.7vw,0.8rem);
+    }
+
+}
+
+
+
+.buttons {
+    display: flex;
+    justify-content: end;
+    gap: 1rem;
+}
+
+.cancelBtn,
+.nextBtn {
+    padding: 0.4rem 2rem;
+    border-radius: 5rem;
+    border: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.cancelBtn {
+    background-color: transparent;
+    color: #666;
+    border: 1px solid #ddd;
+}
+
+.cancelBtn:hover {
+    background-color: #f5f5f5;
+}
+
+.nextBtn {
+    background-color: #0085DB;
+    color: white;
+}
+
+.nextBtn:hover {
+    background-color: #0070c0;
+}
