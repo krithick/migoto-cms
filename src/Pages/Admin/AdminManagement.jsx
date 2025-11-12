@@ -106,7 +106,7 @@ function AdminManagement() {
     try {
       const adminList = await axios.get(`/auth/admins/${_}`);
       setSessionStorage("adminData", adminList)
-      navigate(`/migoto-cms/admins/${_}/editAdmin`);
+      navigate(`${import.meta.env.VITE_APP_URL}admins/${_}/editAdmin`);
     } catch (e) {
       console.log("Unable to fetch admin", e);
     }

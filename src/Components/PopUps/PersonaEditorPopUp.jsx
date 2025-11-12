@@ -23,7 +23,6 @@ function PersonaEditorPopUp() {
       axios
         .get(`/avatars/${isPreview.msg}`)
         .then((res) => {
-          // setThumbnail_url('/avatarTest.png')
           setThumbnail_url(res.data.thumbnail_url);
           handlePersonaChar(res.data.persona_id[0]);
         })

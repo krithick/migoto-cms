@@ -146,7 +146,7 @@ function LVESelection({}) {
         })
         localStorage.setItem("currentPathLocation", "Dashboard");
         setSelectedData("createdUser",null)
-        navigate("/migoto-cms/dashboard");
+        navigate(`${import.meta.env.VITE_APP_URL}dashboard`);
         // window.location.reload()
       } catch (error) {
         console.error("Assignment failed:", error.response?.data || error.message);
@@ -318,7 +318,7 @@ function LVESelection({}) {
                  handleAssignCourseToUser(scenarioRes.data.id, userId)
               }
               if(flow == "CourseManagement flow"){ // courseManagement Flow
-                navigate('/migoto-cms/courseManagement')
+                navigate(`${import.meta.env.VITE_APP_URL}courseManagement`)
               }
               clearAllData()
           } catch (err) {

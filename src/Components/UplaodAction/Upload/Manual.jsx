@@ -66,7 +66,7 @@ export default function Manual() {
           navigate(-1);
         } else {
           localStorage.setItem("TLData",JSON.stringify(TimeLineRoute["/migoto-cms/createUser/assignCourse/:id"]))
-          navigate(`/migoto-cms/createUser/assignCourse/${res.data[0].id}`);
+          navigate(`${import.meta.env.VITE_APP_URL}createUser/assignCourse/${res.data[0].id}`);
           localStorage.setItem("currentPathLocation","Assign Course");
           // setPathLocation("Assign Course");
           setSelectedData("createdUser",[res.data[0].id]);

@@ -18,6 +18,7 @@ import AILoader from "./Components/AILoader/AILoader";
 import { useNavigate } from "react-router-dom";
 import ConfirmationPopUp from "./Components/PopUps/ConfirmationPopUp";
 import PersonaEditorPopUp from "./Components/PopUps/PersonaEditorPopUp";
+import NotFound from "./Utils/NotFound/NotFound";
 // import '../src/local.js'
 function App() {
   const {isPreview, setIsPreview} = usePreviewStore();
@@ -28,6 +29,7 @@ function App() {
   return (
     <>
       {isPreview.enable && isPreview.value == "PersonaPrompt" && <PersonaPromptPopUp />}
+      {isPreview.enable && isPreview.value == "NotFound" && <NotFound />}
       <ConfirmationPopUp />
       <ALVEPopUp />
       <OkCancelPopUp />

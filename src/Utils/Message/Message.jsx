@@ -16,7 +16,7 @@ function Message() {
     <>
       <div className={styles.container}>
         <span className={styles.checkIcon}>
-          <img src={message.state ? "/success.png" : "/error.png" } alt="" width={"35px"} />
+          <img src={message.state ? `${import.meta.env.VITE_APP_URL}success.png` : `${import.meta.env.VITE_APP_URL}error.png` } alt="" width={"35px"} />
         </span>
         <span className={styles.text}>{message.msg}</span>
       </div>

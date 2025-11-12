@@ -68,7 +68,7 @@ function AvatarCard({ data, currentPage, index, setActiveState }) {
         data.thumbnail_url !== null ? (
           <img src={data.thumbnail_url} alt="" />
         ) : (
-          <img src="/avatarImg.png" alt="" />
+          <img src={`${import.meta.env.VITE_APP_URL}avatarImg.png`} alt="" />
         )}
 
         {/* image overlay content only for course,scenario,module */}

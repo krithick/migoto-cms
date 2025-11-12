@@ -9,6 +9,7 @@ import { Input } from "antd";
 import { useUserPopupStore } from "../../store";
 import Message from "../../Utils/Message/Message";
 import axios from '../../service.js'
+import { clearMigotoStorage } from "../../local.js";
 
 function Login() {
   const navigate = useNavigate();
@@ -48,7 +49,7 @@ const [loading, setLoading] = useState(false)
     axios
       .post("/auth/login", data)
       .then((res) => {
-        localStorage.clear()
+        clearMigotoStorage()
         if(res?.data?.user_role=="user"){
           setMessage({
             enable: true,
@@ -76,10 +77,10 @@ const [loading, setLoading] = useState(false)
       <Background />
       {message.enable &&  <Message />}
       <div className={styles.mainContainer}>
-        <img className={styles.illustration} src="/illustration3d.png" alt="" />
+        <img className={styles.illustration} src={`${import.meta.env.VITE_APP_URL}illustration3d.png`} alt="" />
         <div className={styles.loginContainer}>
           <div className={styles.header}>
-            <img className={styles.brand} src="/Logo.png" alt="" />
+            <img className={styles.brand} src={`${import.meta.env.VITE_APP_URL}Logo.png`} alt="" />
             <span className={styles.description}>
               Enhance your skills in a dynamic, interactive environment tailored
               to your learning needs.

@@ -15,7 +15,7 @@ function NotFound() {
         </p>
         <button 
           className={styles.button}
-          onClick={() => navigate("/migoto-cms/dashboard")}
+          onClick={() => navigate(`${import.meta.env.VITE_APP_URL}dashboard`)}
         >
           Go to Dashboard
         </button>

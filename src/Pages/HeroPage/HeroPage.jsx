@@ -13,6 +13,7 @@ import NavBarComponent from "../../Components/HeroPageComponent/NavBar.jsx";
 import TimeLine from "../../Components/Timeline/TimeLine.jsx";
 import AILoader from "../../Components/AILoader/AILoader.jsx";
 import SelectedData from "../../Components/SelectedDATA/SelectedData.jsx";
+import { clearMigotoStorage } from "../../local.js";
 
 function HeroPage() {
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ function HeroPage() {
   useEffect(() => {
     const token = localStorage.getItem("migoto-cms-token");
     if (!token) {
-      localStorage.clear();
+      clearMigotoStorage()
       navigate("/migoto-cms");
     }
   }, [window.location.pathname, navigate]);
@@ -73,15 +74,15 @@ function HeroPage() {
           // setSelectedData("assignedCourse", null),
           const currentPath = window.location.pathname;
 
-          if (currentPath.startsWith('/migoto-cms/users')) {
+          if (currentPath.startsWith(`${import.meta.env.VITE_APP_URL}users`)) {
             // Navigate to users if the path starts with /migoto-cms/users
-            navigate('/migoto-cms/users');
-          } else if (currentPath.startsWith('/migoto-cms/courseManagement')) {
+            navigate(`${import.meta.env.VITE_APP_URL}users`);
+          } else if (currentPath.startsWith(`${import.meta.env.VITE_APP_URL}courseManagement`)) {
             // Navigate to course management if the path starts with /migoto-cms/courseManagement
-            navigate('/migoto-cms/courseManagement');
+            navigate(`${import.meta.env.VITE_APP_URL}courseManagement`);
           } else {
             // Navigate to dashboard for all other paths
-            navigate('/migoto-cms/dashboard');
+            navigate(`${import.meta.env.VITE_APP_URL}dashboard`);
           }
               }
     });

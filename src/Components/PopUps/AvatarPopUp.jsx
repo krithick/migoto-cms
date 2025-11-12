@@ -71,7 +71,7 @@ function AvatarPopUp({activeState , setActiveState}) {
         <div className={styles.imageSection}>
           <p>Preview</p>
           <div>
-            <img src="/example2.png" alt="" />
+            <img src={`${import.meta.env.VITE_APP_URL}example2.png`} alt="" />
           </div>
         </div>
       </div>

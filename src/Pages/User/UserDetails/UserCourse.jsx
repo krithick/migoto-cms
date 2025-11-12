@@ -49,7 +49,7 @@ export default function UserCourse({val,Swap}) {
   }
   const handlePrevious = () => {
     let path = window.location.pathname.replace("/course","")
-    navigate("/migoto-cms/users")
+    navigate(`${import.meta.env.VITE_APP_URL}users`)
   }
 
   return (

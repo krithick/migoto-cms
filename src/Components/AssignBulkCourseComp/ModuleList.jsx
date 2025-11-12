@@ -124,6 +124,18 @@ function ModuleList({
                   }
                   return newSet;
                 });
+                
+                // Clear scenarios for this module if deselecting
+                if (isCurrentlySelected) {
+                  setSelectedScenarios((prev) => {
+                    const newSet = new Set(prev);
+                    scenarioData.forEach(scenario => {
+                      newSet.delete(scenario.id);
+                    });
+                    return newSet;
+                  });
+                }
+                
                 onModuleSelect(currentCourse, item.id, !isCurrentlySelected);
               }
             }}
@@ -144,6 +156,18 @@ function ModuleList({
                     }
                     return newSet;
                   });
+                  
+                  // Clear scenarios for this module if deselecting
+                  if (!isSelected) {
+                    setSelectedScenarios((prev) => {
+                      const newSet = new Set(prev);
+                      scenarioData.forEach(scenario => {
+                        newSet.delete(scenario.id);
+                      });
+                      return newSet;
+                    });
+                  }
+                  
                   onModuleSelect(currentCourse, item.id, isSelected);
                 }}
               />
@@ -171,6 +195,17 @@ function ModuleList({
                     const isCurrentlySelected = selectedScenarios.has(
                       scenario.id
                     );
+                    
+                    // If selecting scenario and module is not selected, select the module
+                    if (!isCurrentlySelected && !selectedModules.has(showModule)) {
+                      setSelectedModules((prev) => {
+                        const newSet = new Set(prev);
+                        newSet.add(showModule);
+                        return newSet;
+                      });
+                      onModuleSelect(currentCourse, showModule, true);
+                    }
+                    
                     setSelectedScenarios((prev) => {
                       const newSet = new Set(prev);
                       if (isCurrentlySelected) {
@@ -208,6 +243,17 @@ function ModuleList({
                     onChange={(e) => {
                       e.stopPropagation();
                       const isSelected = e.target.checked;
+                      
+                      // If selecting scenario and module is not selected, select the module
+                      if (isSelected && !selectedModules.has(showModule)) {
+                        setSelectedModules((prev) => {
+                          const newSet = new Set(prev);
+                          newSet.add(showModule);
+                          return newSet;
+                        });
+                        onModuleSelect(currentCourse, showModule, true);
+                      }
+                      
                       setSelectedScenarios((prev) => {
                         const newSet = new Set(prev);
                         if (isSelected) {

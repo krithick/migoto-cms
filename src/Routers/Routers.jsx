@@ -6,17 +6,20 @@ import BulkListPreview from "../Components/UplaodAction/BulkListPreview/BulkList
 import AvatarManagement from "../Pages/AvatarManagement/AvatarManagement";
 import SceneCanvas from "../Pages/AvatarCreation/SceneCanvas";
 import { UpdateTimeline } from "../Components/Timeline/UpdateTImeLine";
-import { useLOIData } from "../store";
+import { useLOIData, usePreviewStore } from "../store";
 import { getSessionStorage } from "../sessionHelper";
 import DashboardRoute from "./DashboardRoute";
 import CourseRoute from "./CourseRoute";
 import UserRoute from "./UserRoute";
 import AdminRoute from "./AdminRoute";
+import NotFound from "../Utils/NotFound/NotFound";
 
 
 function Routers() {
   const { selectedData, setSelectedData } = useLOIData();
+  const { setIsPreview } = usePreviewStore();
   let path = window.location.pathname;
+  
   useEffect(() => {
     if (path.endsWith("editContent")) {
       console.log("path1: ", path);
@@ -197,6 +200,7 @@ function Routers() {
         <Route path="createAvatar/createAvatar/personaCreation" element={<PersonaPage />}/>
         <Route path="bulkList" element={<BulkListPreview />} />
         <Route path="use" element={<SceneCanvas />} />
+        {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>
     </>
   );

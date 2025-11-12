@@ -17,7 +17,7 @@ export default function BulkAdmin() {
         header: true,
         skipEmptyLines: true,
         complete: function (results) {
-          navigate("/migoto-cms/bulkAdminList", { state: { data: results.data, fileName: file.name } });
+          navigate(`${import.meta.env.VITE_APP_URL}bulkAdminList`, { state: { data: results.data, fileName: file.name } });
         },
       });
     }

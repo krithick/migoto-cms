@@ -10,23 +10,19 @@ import NotFound from './Utils/NotFound/NotFound.jsx'
 
 const router = createBrowserRouter([
   {
-    path: "/migoto-cms",
+    path: import.meta.env.VITE_APP_URL.slice(0, -1),
     element: (
         <Login />
     ),
   },
   {
-    path: '/migoto-cms/*',
+    path: `${import.meta.env.VITE_APP_URL}*`,
     element: <App />,
     children: [
       {
         path: 'dashboard',
         element: <Dashboard />,
       },
-      {
-        path: '*',
-        element: <NotFound />    
-      }
     ]
   },
   // {

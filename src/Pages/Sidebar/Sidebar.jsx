@@ -11,6 +11,7 @@ import LogoutDashIcon from "../../Icons/LogoutDashIcon";
 import { useLOIData, usePreviewStore, useUserPopupStore } from "../../store";
 import { Navcontent } from "./SidebarPopUpContent";
 import { clearAllData, clearCourseData, clearScenarioData } from "../../sessionHelper";
+import { clearMigotoStorage } from "../../local";
 
 function Sidebar() {
   let navigate = useNavigate();
@@ -167,7 +168,7 @@ const handleNavigation=async(nav)=>{
       localStorage.setItem("activeTab", "dashboard");
       localStorage.setItem("timeLine", JSON.stringify(false));
       setActive("dashboard");
-      navigate("/migoto-cms/dashboard");
+      navigate(`${import.meta.env.VITE_APP_URL}dashboard`);
       localStorage.setItem("currentPathLocation", "Dashboard")
       localStorage.setItem("flow", `Dashboard flow`);
       clearAllData()
@@ -176,7 +177,7 @@ const handleNavigation=async(nav)=>{
       localStorage.setItem("activeTab", "adminManagement");
       localStorage.setItem("timeLine", JSON.stringify(false));
       setActive("adminManagement");
-      navigate("/migoto-cms/admins");
+      navigate(`${import.meta.env.VITE_APP_URL}admins`);
       localStorage.setItem("currentPathLocation", "Admin Management")
       localStorage.setItem("flow", `adminManagement flow`);
     }else if(nav=="users"){
@@ -185,7 +186,7 @@ const handleNavigation=async(nav)=>{
       localStorage.setItem("activeTab", "users");
       localStorage.setItem("timeLine", JSON.stringify(false));
       setActive("users");
-      navigate("/migoto-cms/users");
+      navigate(`${import.meta.env.VITE_APP_URL}users`);
       setSelectedData("moduleLists",null)
       setSelectedData("sessions",null)
       setSelectedData("assignedCourse",null)
@@ -200,7 +201,7 @@ const handleNavigation=async(nav)=>{
       setSelectedData("showModule",null)
       setSelectedData("showCourse",null)
       setSelectedData("showScenario",null)
-      navigate('/migoto-cms/courseManagement'),
+      navigate(`${import.meta.env.VITE_APP_URL}courseManagement`),
       setActive("course"),
       localStorage.setItem("activeTab", "course"),
       localStorage.setItem("currentPathLocation", "Course Management")
@@ -209,7 +210,7 @@ const handleNavigation=async(nav)=>{
       clearCourseData()
     }else if(nav=="avatar"){
       localStorage.setItem("timeLine", JSON.stringify(false));
-      navigate('/migoto-cms/avatarManagement'),
+      navigate(`${import.meta.env.VITE_APP_URL}avatarManagement`),
       localStorage.setItem("activeTab", "avatar"),
       setActive("avatar"),
       localStorage.setItem("currentPathLocation", "Avatar Management")
@@ -223,7 +224,7 @@ const handleNavigation=async(nav)=>{
     <>
       <div className={styles.sidebar}>
         <div className={styles.logoContainer}>
-          <img className={styles.logoImg} src="/Logo.png" alt="" />
+          <img className={styles.logoImg} src={`${import.meta.env.VITE_APP_URL}Logo.png`} alt="" />
         </div>
         {/* <div ref={menuContainerRef} className={styles.menuContainer}> */}
         <div className={styles.menuContainer}>
@@ -288,8 +289,8 @@ const handleNavigation=async(nav)=>{
             <span
               className={styles.sidebarNav}
               onClick={() => {
-                navigate("/migoto-cms");
-                localStorage.clear();
+                clearMigotoStorage()
+                navigate(`${import.meta.env.VITE_APP_URL}`);
                 location.reload();
               }}
             >

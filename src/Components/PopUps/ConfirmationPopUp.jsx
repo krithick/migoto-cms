@@ -16,15 +16,15 @@ function ConfirmationPopUp() {
       color: "blue",
       header: "Bulk Assign",
       content:"Course will be assigned to all users uploaded from the document. Please double-check the data before proceeding with the Process",
-      image:`/popupContent1.png`,
-      onClick:`/migoto-cms/createUser/assignCourse/bulkAssign`,
+      image:`${import.meta.env.VITE_APP_URL}popupContent1.png`,
+      onClick:`${import.meta.env.VITE_APP_URL}createUser/assignCourse/bulkAssign`,
     },
     deletePopUp:{
       current:"Module",
       color: "red",
       header: "Delete",
       content:"Are you sure you want to permanently delete this user from your assigned list? This action cannot be undone. The user’s course access and progress data will be lost. ",
-      image:`/deletePopUp.png`,
+      image:`${import.meta.env.VITE_APP_URL}deletePopUp.png`,
       onClick:"createModule"
     },
     unAssignPopUp:{
@@ -32,7 +32,7 @@ function ConfirmationPopUp() {
       color: "blue",
       header: "Unassign",
       content:"Are you sure you want to unassign this user from Admin 1 assigned list? They will still have access to their courses and progress will be retained",
-      image:`/UnassignPopUp.png`,
+      image:`${import.meta.env.VITE_APP_URL}UnassignPopUp.png`,
       onClick:"createModule"
     },
   }

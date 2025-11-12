@@ -134,7 +134,7 @@ function CreateButton({ setCurrentPathLocation }) {
                 JSON.stringify(TimeLineRoute["/migoto-cms/createUser"])
               );
               handleCreateSection("Create User"),
-                navigate("/migoto-cms/createUser"),
+                navigate(`${import.meta.env.VITE_APP_URL}createUser`),
                 setSelectedData("avatarSelection", null);
               setSelectedData("ListofAvatars", null);
               setSelectedData("createdUser", []);
@@ -153,7 +153,7 @@ function CreateButton({ setCurrentPathLocation }) {
                 JSON.stringify(TimeLineRoute["/migoto-cms/createCourse"])
               );
               handleCreateSection("Create Course"),
-                navigate("/migoto-cms/createCourse"),
+                navigate(`${import.meta.env.VITE_APP_URL}createCourse`),
                 setSelectedData("avatarSelection", null);
               setSelectedData("ListofAvatars", null);
               setSelectedData("createdUser", []);

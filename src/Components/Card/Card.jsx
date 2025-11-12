@@ -79,8 +79,8 @@ function  Card({ data, currentPage, index }) {
       >
         {/* image for course,scenario,module */}
         {/* {currentPage != "DocumentFile" && <img src={data?.thumbnail_url} alt="" />} */}
-        {(currentPage != "DocumentFile" && currentPage != "moduleLists" && currentPage != "sessions")&&<img src={data?.thumbnail_url?data.thumbnail_url:"/avatarImg.png"} alt="" />}
-        {(currentPage == "moduleLists"||currentPage == "sessions")&&<img src={data?.info?.thumbnail_url?data?.info?.thumbnail_url:"/avatarImg.png"} alt="" />}
+        {(currentPage != "DocumentFile" && currentPage != "moduleLists" && currentPage != "sessions")&&<img src={data?.thumbnail_url?data.thumbnail_url:`${import.meta.env.VITE_APP_URL}avatarImg.png`} alt="" />}
+        {(currentPage == "moduleLists"||currentPage == "sessions")&&<img src={data?.info?.thumbnail_url?data?.info?.thumbnail_url:`${import.meta.env.VITE_APP_URL}avatarImg.png`} alt="" />}
 
         {/* {currentPage == "DocumentFile" && index == 2 && <img src='/example1.jpg' alt="" />} */}
         {/* pdf for document Mode */}

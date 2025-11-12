@@ -55,7 +55,7 @@ function AvatarCreation({setEditPage}) {
             if (flow == "CourseManagement & editScenario flow") {
               handleNavigateBack();
             } else if (flow == "Create Avatar flow") {
-              navigate("/migoto-cms/dashboard");
+              navigate(`${import.meta.env.VITE_APP_URL}dashboard`);
               clearAllData()
             } else {
               handleBack();

@@ -88,7 +88,7 @@ function BulkListPreview() {
             status: "warning",
             description: `In Progress`
           },setSelectedData);
-          navigate("/migoto-cms/createUser/assignCourse/bulkAssign");
+          navigate(`${import.meta.env.VITE_APP_URL}createUser/assignCourse/bulkAssign`);
         }
       }
     } catch (error) {
@@ -119,7 +119,7 @@ function BulkListPreview() {
           {/* <button className={styles.removeBtn} onClick={() => navigate("/migoto-cms/createUser")}>
             <RemoveButtonIcon /> Remove
           </button> */}
-          <button className={styles.reuploadBtn} onClick={() => navigate("/migoto-cms/createUser")}>
+          <button className={styles.reuploadBtn} onClick={() => navigate(`${import.meta.env.VITE_APP_URL}createUser`)}>
             <ReUploadBtnIcon /> Re-upload
           </button>
         </div>

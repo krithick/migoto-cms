@@ -185,10 +185,10 @@ function ListofItems() {
 
       if (flow == "UserManagement flow") {
         localStorage.setItem("currentPathLocation", "User");
-        navigate("/migoto-cms/users");
+        navigate(`${import.meta.env.VITE_APP_URL}users`);
       } else {
         localStorage.setItem("currentPathLocation", "Dashboard");
-        navigate("/migoto-cms/dashboard");
+        navigate(`${import.meta.env.VITE_APP_URL}dashboard`);
       }
     } catch (error) {
       setMessage({
@@ -420,7 +420,7 @@ function ListofItems() {
             `/avatar-interactions/${interactionId}`,
             payload
           );
-          navigate("/migoto-cms/dashboard");
+          navigate(`${import.meta.env.VITE_APP_URL}dashboard`);
         } catch (error) {
           console.error(`Error updating ${key}:`, error);
         }

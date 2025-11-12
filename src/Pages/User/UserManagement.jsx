@@ -115,7 +115,7 @@ function UserManagement() {
       try {
         const userList = await axios.get(`/auth/users/${_}`);
         setSessionStorage("userData", userList)
-        navigate(`/migoto-cms/users/${_}/course`);
+        navigate(`${import.meta.env.VITE_APP_URL}users/${_}/course`);
       } catch (e) {
         console.log("Unable to fetch users", e);
       }

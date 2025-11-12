@@ -20,6 +20,7 @@ function AssignBulkCourse() {
   const [selectedCourse, setSelectedCourse] = useState([]);
   const [currentCourse, setCurrentCourse] = useState(null);
   const [payload, setPayload] = useState([]);
+  console.log('payload: ', payload);
   const { id } = useParams();
   const { selectedData, setSelectedData } = useLOIData();
   let [flow, setFlow] = useState(localStorage.getItem("flow"));
@@ -197,10 +198,10 @@ function AssignBulkCourse() {
       });
       if (flow == "UserManagement flow") {
         localStorage.setItem("currentPathLocation", "User");
-        navigate("/migoto-cms/users");
+        navigate(`${import.meta.env.VITE_APP_URL}users`);
       } else {
         localStorage.setItem("currentPathLocation", "Dashboard");
-        navigate("/migoto-cms/dashboard");
+        navigate(`${import.meta.env.VITE_APP_URL}dashboard`);
       }
     } catch (error) {
       console.error("Assignment failed:", error);

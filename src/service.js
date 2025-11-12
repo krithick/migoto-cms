@@ -51,6 +51,7 @@
 
 import Axios from "axios";
 import { useLoaderStore } from "./store";
+import { clearMigotoStorage } from "./local";
 
 const site = import.meta.env.VITE_BASE_URL
 
@@ -161,7 +162,7 @@ instance.interceptors.response.use(
       // Only redirect if not on login page
       const currentPath = window.location.pathname;
       if (currentPath !== '/migoto-cms' && !currentPath.includes('login')) {
-        localStorage.clear();
+        clearMigotoStorage();
         window.location.href = "/migoto-cms";
       }
     }
