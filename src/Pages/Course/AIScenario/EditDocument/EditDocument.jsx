@@ -275,14 +275,13 @@ function EditDocument({ setEditPage, setCurrentPage }) {
   let hiddenContent = ["extraction_timestamp","extraction_version"];
 
   const handlePutApi = async (promptData) => {
-    setEditPage("suportDocument")
-    return
-
   try {
     const res = await axios.put(
       `scenario/scenarios-editor/${getSessionStorage("showScenario")}/template-data`,
       { ...promptData }
     );
+    setEditPage("suportDocument")
+    return
     handleEditData(res.data)
   } catch (err) {
     console.error("Prompt submission failed:", err);
