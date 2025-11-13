@@ -154,18 +154,29 @@ function PersonaEditorPopUp() {
     });
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     const { thumbnail_url, _id, template_id, archetype_confidence, archetype_specific_data, updated_at, prompt_generated_at, prompt_mode, ...updateData } = formData;
-    axios
-      .put(`/personas/v2/${formData.id}`, updateData)
-      .then((res) => {
-        setData(res.data);
-        setIsEditing(false);
-        setIsPreview({enable:false,msg:"",value:"AvatarPopUp"})
-      })
-      .catch((err) => {
-        console.log("err: ", err);
-      });
+    
+    try {
+      const res = await axios.put(`/personas/v2/${formData.id}`, updateData);
+      setData(res.data);
+      
+      // Call generate-persona-prompts API after saving persona
+      try {
+        await axios.post("/scenario/v2/generate-persona-prompts", {
+          template_id: template_id || "default-template",
+          persona_ids: [formData.id],
+          mode: "assess_mode"
+        });
+      } catch (err) {
+        console.log("Generate persona prompts failed:", err);
+      }
+      
+      setIsEditing(false);
+      setIsPreview({enable:false,msg:"",value:"AvatarPopUp"});
+    } catch (err) {
+      console.log("err: ", err);
+    }
   };
 
   return (

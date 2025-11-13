@@ -121,7 +121,7 @@ function SceneCanvas({ setActiveState }) {
   //   console.log('idList: ', selectedData[`${idList[0][mode1]}`]);
   // },[])
 
-  const PostAvatar = (img) => {
+  const PostAvatar = async (img) => {
     let payload = {
       name: payloadName,
       fbx: payloadfbx,
@@ -133,19 +133,30 @@ function SceneCanvas({ setActiveState }) {
       thumbnail_url: img,
     };
 
-    axios
-      .post("/avatars/", { ...payload })
-      .then((res) => {
-        setMessage({
-          enable: true,
-          msg: "Avatar Created Successfully",
-          state: true,
+    try {
+      const res = await axios.post("/avatars/", { ...payload });
+      
+      setMessage({
+        enable: true,
+        msg: "Avatar Created Successfully",
+        state: true,
+      });
+      let existAvatar = JSON.parse(sessionStorage.getItem("ListOfAvatar") || "[]");
+      if(!existAvatar.includes(res.data.id)){
+        setSessionStorage("ListOfAvatar", [...(existAvatar || []), res.data.id]);
+      }
+      setSessionStorage("AvatarPreview", res.data.id);
+
+      // Call generate-persona-prompts API before posting avatar interactions
+      try {
+        await axios.post("/scenario/v2/generate-persona-prompts", {
+          template_id: getSessionStorage("template_id") || "default-template",
+          persona_ids: [getSessionStorage("PersonaSelection")],
+          mode: "assess_mode"
         });
-        let existAvatar = JSON.parse(sessionStorage.getItem("ListOfAvatar") || "[]");
-        if(!existAvatar.includes(res.data.id)){
-          setSessionStorage("ListOfAvatar", [...(existAvatar || []), res.data.id]);
-        }
-        setSessionStorage("AvatarPreview", res.data.id);
+      } catch (err) {
+        console.log("Generate persona prompts failed:", err);
+      }
 
         if (
           (flow == "CourseManagement & editScenario flow" && getSessionStorage("AvatarAssignedTo") == "all") || //this is for all interaction and edit scenario flow
@@ -156,7 +167,7 @@ function SceneCanvas({ setActiveState }) {
             { key: "TryModeAvatarInteractionId", setKey: "TryModeAvatar" },
             { key: "AssessModeAvatarInteractionId", setKey: "AssessModeAvatar" },
           ];
-
+          
           idList.map((v, i) => {
             let existing = getSessionStorage(v.setKey);
             axios
@@ -205,16 +216,15 @@ function SceneCanvas({ setActiveState }) {
             });
         }
 
-        setActiveState();
-      })
-      .catch((err) => {
-        console.log("err: ", err);
-        setMessage({
-          enable: true,
-          msg: "Something went wrong",
-          state: false,
-        });
+      setActiveState();
+    } catch (err) {
+      console.log("err: ", err);
+      setMessage({
+        enable: true,
+        msg: "Something went wrong",
+        state: false,
       });
+    }
   };
  
   useEffect(() => {
