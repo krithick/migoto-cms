@@ -5,7 +5,7 @@ import PdfIcon from "../../Icons/PdfIcon";
 import PreviewIcon from "../../Icons/PreviewIcon";
 import DeleteIcon from "../../Icons/DeleteIcon";
 
-function AvatarCard({ data, currentPage, index, setActiveState }) {
+function AvatarCard({ data, currentPage, index, setActiveState, onDelete }) {
   console.log('currentPage: ', currentPage);
   //data is the data of card
   //currentpage is indicator like module,scenario,course,modePdf
@@ -79,7 +79,10 @@ function AvatarCard({ data, currentPage, index, setActiveState }) {
               <p>Character Name</p>
               <div>{data?.name}</div>
             </div>
-            {currentPage=="Avatars Assigned"&&<div className={styles.deleteIcon}>
+            {currentPage=="Avatars Assigned"&&<div className={styles.deleteIcon} onClick={(e) => {
+              e.stopPropagation();
+              onDelete && onDelete(data.id);
+            }}>
               <DeleteIcon />  
               {/* <p>Age</p>
               <div>{data?.age}</div> */}

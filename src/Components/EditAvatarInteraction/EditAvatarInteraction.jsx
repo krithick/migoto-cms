@@ -44,6 +44,13 @@ function EditAvatarInteraction({selected, modeData, setCurrentPage,setPage}) {
     });
   }
 
+  const handleDeleteAvatar = (avatarId) => {
+    const updatedAvatarIds = modeData.avatars
+      .filter(avatar => avatar.id !== avatarId)
+      .map(avatar => avatar.id);
+    handleUpdateAPI("avatars", updatedAvatarIds);
+  }
+
   useEffect(()=>{
     setValue(modeData?.layout)
   },[modeData])
@@ -130,7 +137,7 @@ function EditAvatarInteraction({selected, modeData, setCurrentPage,setPage}) {
           </div>
           <div className={styles.ListBox}>
           {modeData?.avatars?.map((item, index) => (
-            <AvatarCard key={index} data={item} currentPage="Avatars Assigned" />
+            <AvatarCard key={index} data={item} currentPage="Avatars Assigned" onDelete={handleDeleteAvatar} />
           ))}
           </div>
           <div className={styles.footer}>
@@ -236,9 +243,9 @@ function EditAvatarInteraction({selected, modeData, setCurrentPage,setPage}) {
                       </Radio.Group>
                     </div>
                     <div className={styles.rightSection}>
-                      {value==1&&<img src={import.meta.env.LAYOUT1} alt={`Layout ${value}`} />}
-                      {value==2&&<img src={import.meta.env.LAYOUT2} alt={`Layout ${value}`} />}
-                      {value==3&&<img src={import.meta.env.LAYOUT3} alt={`Layout ${value}`} />}
+                      {value==1&&<img src={import.meta.env.VITE_LAYOUT1} alt={`Layout ${value}`} />}
+                      {value==2&&<img src={import.meta.env.VITE_LAYOUT2} alt={`Layout ${value}`} />}
+                      {value==3&&<img src={import.meta.env.VITE_LAYOUT3} alt={`Layout ${value}`} />}
                     </div>
             </div>
             </>

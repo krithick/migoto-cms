@@ -467,7 +467,9 @@ function SceneCanvas({ setActiveState }) {
             onClick={() => {
               if (ogConfig && ogConfig.length > 0) {
                 setFilter(ogConfig[0]?.name || "Body");
-                handleSubmit();
+                setTimeout(() => {
+                  handleSubmit();
+                }, 1000);
               }
             }}
           >
