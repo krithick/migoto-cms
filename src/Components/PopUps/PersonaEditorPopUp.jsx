@@ -155,7 +155,7 @@ function PersonaEditorPopUp() {
   };
 
   const handleSave = async () => {
-    const { thumbnail_url, _id, template_id, archetype_confidence, archetype_specific_data, updated_at, prompt_generated_at, prompt_mode, ...updateData } = formData;
+    const { thumbnail_url, _id, template_id, archetype_confidence, archetype_specific_data, updated_at, prompt_generated_at, prompt_mode,system_prompt, ...updateData } = formData;
     
     try {
       const res = await axios.put(`/personas/v2/${formData.id}`, updateData);
