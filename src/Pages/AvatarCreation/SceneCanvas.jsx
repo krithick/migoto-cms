@@ -238,6 +238,7 @@ function SceneCanvas({ setActiveState }) {
         
         const [res1, res2] = await Promise.all(requests);
         const combinedData = [...(res1.data || []), ...(res2.data || [])];
+        console.log('combinedData: ', combinedData);
         
         if (combinedData.length === 0) {
           console.warn("No model data received from API");

@@ -14,7 +14,7 @@ import SupportDocUpload from "./SupportDocUpload/SupportDocUpload";
 import { setSessionStorage } from "../../../sessionHelper";
 
 function AiScenarioBuilder({ setUploadPage }) {
-  const { message, setMessage } = useUserPopupStore();
+  const { message, setMessage } = useUserPopupStore();                                                             
   const [selected, setSelected] = useState(1);
   let navigate = useNavigate();
   const { selectedData, setSelectedData } = useLOIData();
@@ -84,7 +84,6 @@ function AiScenarioBuilder({ setUploadPage }) {
     });
     setSelectedData("template_name", formData.title);
     setSelectedData("scenarioData", formData);
-    setSessionStorage("scenarioData", formData);
     try {
       const res = await axios.post(
         `scenario/analyze-scenario-enhanced`,
@@ -92,6 +91,14 @@ function AiScenarioBuilder({ setUploadPage }) {
         { headers: { "Content-Type": "multipart/form-data" } }
       );
       // setSelectedData("templateResponse", res.data.template_data);
+      setSelectedData("scenarioData",{
+        title: res.data?.template_data?.context_overview?.scenario_title,
+        description: res.data?.template_data?.context_overview?.purpose_of_scenario,
+      })
+      setSessionStorage("scenarioData", {
+        title: res.data?.template_data?.context_overview?.scenario_title,
+        description: res.data?.template_data?.context_overview?.purpose_of_scenario,
+      });
       setSelectedData("template_id", res?.data?.template_id);
       setSessionStorage("template_id", res?.data?.template_id);
       setSessionStorage("Layout", value);
