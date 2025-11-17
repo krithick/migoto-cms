@@ -119,7 +119,6 @@ function CreateCourse({currentPage, setCurrentPage, setData, courseDetail }) {
       axios
       .post("/courses/", { ...formData })
       .then((res) => {
-        // setData(res.data.id);
         setSelectedData("courseId", res?.data?.id);
         setSessionStorage("courseId", res?.data?.id);
         setMessage({
@@ -260,32 +259,6 @@ function CreateCourse({currentPage, setCurrentPage, setData, courseDetail }) {
                     onChange={handleInputChange}
                   />
                 </div>
-                {/* <div className={styles.inputDiv}>
-                  <label htmlFor="category">
-                    Category <span>*</span>
-                  </label>
-                  <input
-                    name="category"
-                    type="text"
-                    className={styles.input}
-                    value={formData.category}
-                    placeholder="Enter Category"
-                    onChange={handleInputChange}
-                  />
-                </div> */}
-                {/* <div className={styles.inputDiv}>
-                  <label htmlFor="course_id">
-                    Course Code / ID <span>*</span>
-                  </label>
-                  <input
-                    name="course_id"
-                    type="text"
-                    value={formData.course_id}
-                    className={styles.input}
-                    placeholder="Enter CourseId"
-                    onChange={handleInputChange}
-                  />
-                </div> */}
                 <div className={styles.inputDiv}>
                   <label htmlFor="visiblity">
                    visibility <span>*</span>

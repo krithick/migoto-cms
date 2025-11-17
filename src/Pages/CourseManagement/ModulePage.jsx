@@ -97,6 +97,8 @@ function ModulePage() {
       return;
     }
     localStorage.setItem("flow", "CourseManagement flow");
+    setSelectedData("courseId", getSessionStorage("showCourse")); //this is for creating module without creating course
+    sessionStorage.setItem("courseId",getSessionStorage("showCourse")) //this is for creating module without creating course
     navigate(suitableName[currentPage].onClick);
     clearScenarioData();
     setSelectedData("avatarSelection", null);

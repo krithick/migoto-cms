@@ -55,6 +55,8 @@ export function clearSessionStorage(key) {
 }
 
 export function clearScenarioData() {
+  console.log("cleared scenario data");
+
   try {
       sessionStorage.removeItem("Document");
       sessionStorage.removeItem("Layout");
@@ -68,6 +70,7 @@ export function clearScenarioData() {
       sessionStorage.removeItem("template_id");
       sessionStorage.removeItem("selectedPersona");
       sessionStorage.setItem("personaLimit",0);
+      sessionStorage.removeItem("personaId");
   } catch (e) {
     console.error("Error clearing from sessionStorage", e);
   }
@@ -91,6 +94,8 @@ export function clearAllData() {
       sessionStorage.removeItem("moduleId");
       sessionStorage.setItem("personaLimit",0);
       sessionStorage.removeItem("selectedPersona");
+      sessionStorage.removeItem("personaId",0);
+
   } catch (e) {
     console.error("Error clearing from sessionStorage", e);
   }

@@ -75,8 +75,6 @@ function LoiHeader({
     }
   };
 
-  console.log('localStorage.getItem("flow"): ', localStorage.getItem("flow"));
-
   return (
     <div className={styles.loiHeader}>
       <div className={styles.loiHeaderLeft}>

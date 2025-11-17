@@ -6,6 +6,7 @@ import axios from "../../service.js";
 import { useUserPopupStore } from "../../store.js";
 import { useNavigate } from "react-router-dom";
 import { UpdateTimeline } from "../Timeline/UpdateTImeLine.js";
+import { div } from "three/tsl";
 
 function ModuleList({
   payload,
@@ -20,9 +21,7 @@ function ModuleList({
   let [scenarioData, setScenarioData] = useState([]);
   let [showModule, setShowModule] = useState();
   let [selectedModules, setSelectedModules] = useState(new Set());
-  console.log('selectedModules: ', selectedModules);
   let [selectedScenarios, setSelectedScenarios] = useState(new Set());
-  console.log('selectedScenarios: ', selectedScenarios);
   let [activeKeys, setActiveKeys] = useState([]);
   let [flow, setFlow] = useState(localStorage.getItem("flow"));
   const navigate = useNavigate();
@@ -185,7 +184,7 @@ function ModuleList({
       children: ( //scenarios list 
         <>
           <p className={styles.heading}>List of Scenario</p>
-          <div className={styles.scenarioList}>
+          {scenarioData?.length>0 ? <div className={styles.scenarioList}>
             {scenarioData?.map((scenario, index) => (
               <div
                 className={styles.scenario}
@@ -293,7 +292,9 @@ function ModuleList({
                 </div>
               </div>
             ))}
-          </div>
+          </div>:(
+            <div className={styles.alertScenario}>Scenarios Not Available </div>
+          )}
         </>
       ),
       style: panelStyle,
@@ -305,7 +306,7 @@ function ModuleList({
         <div className={styles.header}>
           <div>List of Module</div>
         </div>
-        <div className={styles.accordationContainer}>
+        {moduleData?.length>0 ? <div className={styles.accordationContainer}>
           <Collapse
             accordion
             bordered={false}
@@ -317,7 +318,9 @@ function ModuleList({
             style={{ background: token.colorBgContainer }}
             items={getItems(panelStyle)}
           />
-        </div>
+        </div>:
+          <div className={styles.alertScenario}>Modules Not Available</div>
+        }
       </div>
       <div className={styles.footer}>
         <div className={styles.selectedData}>

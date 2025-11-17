@@ -14,26 +14,19 @@ function CreateScenario({
   let { selectedData, setSelectedData } = useLOIData();
   let flow = localStorage.getItem("flow");
 
-  // useEffect(() => {
-  //   console.log('moveTo: ', moveTo);
-  //   if (moveTo) {
-  //     console.log('moveTo2: ', moveTo);
-  //     setUploadPage("Document Upload");
-  //   }
-  // }, [moveTo]);
 
-  useEffect(() => {
-    if (
-      flow == "CourseManagement flow" &&
-      getSessionStorage("showCourse") &&
-      getSessionStorage("showModule")
-    ) {
-      setSelectedData("courseId", getSessionStorage("showCourse"));
-      setSelectedData("moduleId", getSessionStorage("showModule"));
-      sessionStorage.setItem("courseId", getSessionStorage("showCourse"));
-      sessionStorage.setItem("moduleId", getSessionStorage("showModule"));
-    }
-  }, []); //corseManagement flow creating module without creating course
+  // useEffect(() => {
+  //   if (
+  //     flow == "CourseManagement flow" &&
+  //     getSessionStorage("showCourse") &&
+  //     getSessionStorage("showModule")
+  //   ) {
+  //     setSelectedData("courseId", getSessionStorage("showCourse"));
+  //     setSelectedData("moduleId", getSessionStorage("showModule"));
+  //     sessionStorage.setItem("courseId", getSessionStorage("showCourse"));
+  //     sessionStorage.setItem("moduleId", getSessionStorage("showModule"));
+  //   }
+  // }, []); //corseManagement flow creating module without creating course
 
   return (
     <>

@@ -71,12 +71,12 @@ function CreateModule({
     }
   }, [selectedFile]);
 
-  useEffect(() => {
-    if (flow == "CourseManagement flow" && getSessionStorage("showCourse")) {
-      setSelectedData("courseId", getSessionStorage("showCourse"));
-      sessionStorage.setItem("courseId", getSessionStorage("showCourse"));
-    }
-  }, []); //corseManagement flow creating module without creating course
+  // useEffect(() => {
+  //   if (flow == "CourseManagement flow" && getSessionStorage("showCourse")) {
+  //     setSelectedData("courseId", getSessionStorage("showCourse"));
+  //     sessionStorage.setItem("courseId", getSessionStorage("showCourse"));
+  //   }
+  // }, []); //corseManagement flow creating module without creating course
 
   useEffect(() => {
     if (courseDetail) {

@@ -20,7 +20,6 @@ function AssignBulkCourse() {
   const [selectedCourse, setSelectedCourse] = useState([]);
   const [currentCourse, setCurrentCourse] = useState(null);
   const [payload, setPayload] = useState([]);
-  console.log('payload: ', payload);
   const { id } = useParams();
   const { selectedData, setSelectedData } = useLOIData();
   let [flow, setFlow] = useState(localStorage.getItem("flow"));
@@ -35,6 +34,11 @@ function AssignBulkCourse() {
     scenario_mapping: {},
     mode_mapping: {},
   };
+
+  useEffect(() => {
+    console.log('payload: ', payload);
+  }, [payload])
+  
 
 
   // Handle module selection - sets include_all_modules to false

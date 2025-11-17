@@ -141,7 +141,7 @@ function ScenarioPage() {
   }, [window.location.pathname]);
 
   const handleCreateBtn = () => {
-    if(!courseDetail?.created_by){
+    if (!courseDetail?.created_by) {
       setMessage({
         enable: true,
         msg: "Created By User is Missing",
@@ -159,7 +159,12 @@ function ScenarioPage() {
       return;
     }
     localStorage.setItem("flow", "CourseManagement flow"),
-      navigate(suitableName[currentPage].onClick),
+    setSelectedData("courseId", getSessionStorage("showCourse"));      //corseManagement flow creating module without creating course
+    setSelectedData("moduleId", getSessionStorage("showModule"));
+    sessionStorage.setItem("courseId", getSessionStorage("showCourse"));
+    sessionStorage.setItem("moduleId", getSessionStorage("showModule"));      //corseManagement flow creating module without creating course
+
+    navigate(suitableName[currentPage].onClick),
       clearScenarioData(),
       setSelectedData("avatarSelection", null),
       setSelectedData("ListofAvatars", null);

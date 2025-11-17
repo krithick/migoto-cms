@@ -202,7 +202,6 @@ function LVESelection({}) {
       }
 
       let learn_prompt = await getLearnPrompt()
-      console.log('learn_prompt: ', learn_prompt);
      
       // if(learn_prompt){
       //   setMessage({
@@ -314,11 +313,22 @@ function LVESelection({}) {
                 state: true,
               })
               setSelectedData("scenarioId",scenarioRes.data?.id);
+              setSelectedData("showCourse",null)
+              setSelectedData("showModule",null)
+              setSelectedData("showScenario",null)
+              setSelectedData("courseId",null)
+              setSelectedData("moduleId",null)
               if(flow == "Create Course flow" || flow == "Create User and Course flow"){
                  handleAssignCourseToUser(scenarioRes.data.id, userId)
               }
               if(flow == "CourseManagement flow"){ // courseManagement Flow
                 navigate(`${import.meta.env.VITE_APP_URL}courseManagement`)
+                console.log("scenario created");
+                clearScenarioData()
+                sessionStorage.removeItem("showCourse");
+                sessionStorage.removeItem("showModule");
+                sessionStorage.removeItem("showScenario");
+          
               }
               clearAllData()
           } catch (err) {

@@ -363,6 +363,7 @@
   box-sizing: border-box;
   font-size: clamp(0.8rem, .8vw, 0.9rem);
   font-weight: 300;
+  -webkit-text-stroke-width: thick;
 }
 
 /* column 9 styling */

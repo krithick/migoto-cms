@@ -142,4 +142,6 @@
 
 .statsSign {
   text-align: center;
+  -webkit-text-stroke-width: thick;
+
 }

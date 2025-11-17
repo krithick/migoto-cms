@@ -104,8 +104,7 @@
   flex-direction: column;
   align-items: first baseline;
   padding-left: 5%;
-  font-size: clamp(0.7rem, .7vw, 0.9rem);
-
+  font-size: clamp(0.7rem, 0.7vw, 0.9rem);
 }
 
 .infoStats div {
@@ -169,7 +168,7 @@
   /* background-color: rebeccapurple; */
 }
 .mainHeader p {
-  font-size: clamp(0.7rem, .8vw, 0.7rem);
+  font-size: clamp(0.7rem, 0.8vw, 0.7rem);
 }
 
 .mainSection {
@@ -201,7 +200,7 @@
   padding-right: 1%;
   padding-top: 0.5%;
   padding-bottom: 0.5%;
-  img{
+  img {
     object-fit: cover;
   }
 }
@@ -232,12 +231,11 @@
 }
 .subTitle {
   color: #666666;
-  font-size: clamp(0.8rem, .7vw, 0.8rem);
-
+  font-size: clamp(0.8rem, 0.7vw, 0.8rem);
 }
 .subValue,
 .subValue4 {
-  font-size: clamp(0.8rem, .7vw, 0.8rem);
+  font-size: clamp(0.8rem, 0.7vw, 0.8rem);
 }
 
 .subValue4 {
@@ -280,8 +278,7 @@
   /* background-color: #0085DB26; */
   display: flex;
   align-items: flex-end;
-  font-size: clamp(0.8rem, .8vw, 0.9rem);
-
+  font-size: clamp(0.8rem, 0.8vw, 0.9rem);
 }
 .dbHeaderRight {
   width: 50%;
@@ -352,7 +349,7 @@
     /* border: solid 1px gray; */
   }
 }
-.report{
+.report {
   color: var(--brand);
   cursor: pointer;
 }
@@ -388,7 +385,7 @@
   color: #b21f00;
   display: flex;
   gap: 0.5%;
-  font-size: clamp(0.7rem, .8vw, 0.7rem);
+  font-size: clamp(0.7rem, 0.8vw, 0.7rem);
   justify-content: center;
   align-items: center;
   align-self: center;
@@ -396,7 +393,6 @@
   margin-right: auto;
 }
 .statusRound {
-  /* color: #28A745; */
   width: 10%;
   height: 100%;
   font-weight: 500;
@@ -429,6 +425,6 @@
     padding: 1vh 1.2vw;
   }
 }
-.textCenter{
+.textCenter {
   text-align: center;
 }
