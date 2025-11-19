@@ -6,7 +6,6 @@ import PreviewIcon from "../../Icons/PreviewIcon";
 import DeleteIcon from "../../Icons/DeleteIcon";
 
 function AvatarCard({ data, currentPage, index, setActiveState, onDelete }) {
-  console.log('currentPage: ', currentPage);
   //data is the data of card
   //currentpage is indicator like module,scenario,course,modePdf
   const { selectedData, setSelectedData } = useLOIData(); // data of module,scenario,course
@@ -40,6 +39,23 @@ function AvatarCard({ data, currentPage, index, setActiveState, onDelete }) {
     }
     setSelectedData(currentPage, updatedData);
   };
+
+  const confirmPopup = () => {
+    let result = new Promise((resolve) => {
+      setIsPreview({
+        enable: true,
+        msg: [1],
+        value: "deleteAvatar",
+        resolve,
+      });
+    });
+    result.then((result) => {
+      if (result) {
+        onDelete && onDelete(data.id);
+      }
+    });
+  };
+
   return (
     <div
       className={`${
@@ -68,7 +84,7 @@ function AvatarCard({ data, currentPage, index, setActiveState, onDelete }) {
         data.thumbnail_url !== null ? (
           <img src={data.thumbnail_url} alt="" />
         ) : (
-          <img src={`${import.meta.env.VITE_APP_URL}avatarImg.png`} alt="" />
+          <img src={`${import.meta.env.VITE_APP_URL}avatarImg1.jpg`} alt="" />
         )}
 
         {/* image overlay content only for course,scenario,module */}
@@ -81,11 +97,10 @@ function AvatarCard({ data, currentPage, index, setActiveState, onDelete }) {
             </div>
             {currentPage=="Avatars Assigned"&&<div className={styles.deleteIcon} onClick={(e) => {
               e.stopPropagation();
-              onDelete && onDelete(data.id);
+              confirmPopup()
+              
             }}>
               <DeleteIcon />  
-              {/* <p>Age</p>
-              <div>{data?.age}</div> */}
             </div>}
           </div>
         )}

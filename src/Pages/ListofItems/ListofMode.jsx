@@ -26,7 +26,6 @@ function ListofMode({data}) {
     setIsOpen("Assess Mode",true);    
   },[])
 
-// console.log(isOpen);
 
   return (
     <div className={styles.loiContainer}>

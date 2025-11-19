@@ -87,17 +87,6 @@ function AvatarInteraction() {
     fetchAvatarInteractionData();
   }, [currentPage,selectedData["checkAI"]]);
 
-  let suitableName = {
-    showAvatarInteraction:{
-      current:"AvatarInteraction",
-      create: "Create Scenario",
-      header: "Avatar Interaction",
-      detailHeader: "Scenario ",
-      edit:"editScenario",
-      flow: "CourseManagement & editScenario flow"
-    }
-  }
-
   useEffect(()=>{
     localStorage.setItem("flow","CourseManagement flow")
     let path = window.location.pathname;
@@ -117,17 +106,19 @@ function AvatarInteraction() {
                   handlePrevious();
                 }}
               />
-              <p>{suitableName[currentPage]?.detailHeader} Details</p>
+              <p>Scenario Details</p>
             </div>
             <hr />
             <DetailCard courseDetail={courseDetail} currentPage={currentPage} setCurrentPage={(item)=>{setCurrentPage(item)}} setPage={(item)=>{setPage(item)}}/>
+              {/* currentPage is to define show the avatar Interaction data or (editing the scenario and create avatar) */}
+              {/* page is to define in edit the base the document or supporting docs or create avatar */}
           </div>
         )}
         {currentPage == "showAvatarInteraction" && (
           <div className={styles.OutterBox}>
             <div className={styles.header}>
                 <div className={styles.headerCol}>
-                  <p style={{ width: "150px" }}>{suitableName[currentPage].header}</p>
+                  <p style={{ width: "150px" }}>Avatar Interaction</p>
                 </div>
             </div>
             {(avatarInteractionData && isDataLoaded) && <ShowAvatarInteraction activeMode={avatarInteractionData} setCurrentPage={()=>{setCurrentPage("editScenario")}} setPage={()=>{setPage("personaPopUp")}}/>}

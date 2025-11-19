@@ -62,7 +62,7 @@ function SelectionCard({ data, currentPage, index }) {
         {
   (data.thumbnail_url && data.thumbnail_url !== "string" && data.thumbnail_url !== null)
     ? <img src={data.thumbnail_url} alt="" />
-    : <img src={`${import.meta.env.VITE_APP_URL}avatarImg.png`} alt="" />
+    : <img src={`${import.meta.env.VITE_APP_URL}avatarImg1.jpg`} alt="" />
 }
         {/* image overlay content only for course,scenario,module */}
         {<div className={styles.details}> 

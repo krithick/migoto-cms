@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo } from "react";
 import axios from "../../service.js";
 import styles from "../AssignBulkCourseComp/CourseList.module.css";
+import { ImageLoader } from "../ImageLoader";
 function CourseList({
   data,
   setDatas,
@@ -112,10 +113,13 @@ function CourseList({
               </td>
               <td className={styles.courseTitle}>
                 <div className={styles.image}>
-                  <img src={course?.thumbnail_url} alt="" />
+                  <ImageLoader
+                    src={course?.thumbnail_url} 
+                    onError={(e) => (e.target.src = `${import.meta.env.VITE_APP_URL}NovacLogo.ico`)} 
+                  />
                 </div>
                 <div className={styles.text}>
-                  <p>course Title</p>
+                  <p>course Title</p>  
                   {course.title || course.name || "Course"}
                 </div>
               </td>

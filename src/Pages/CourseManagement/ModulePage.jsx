@@ -99,7 +99,7 @@ function ModulePage() {
     localStorage.setItem("flow", "CourseManagement flow");
     setSelectedData("courseId", getSessionStorage("showCourse")); //this is for creating module without creating course
     sessionStorage.setItem("courseId",getSessionStorage("showCourse")) //this is for creating module without creating course
-    navigate(suitableName[currentPage].onClick);
+    navigate("createModule");
     clearScenarioData();
     setSelectedData("avatarSelection", null);
     setSelectedData("ListofAvatars", null);
@@ -122,32 +122,6 @@ function ModulePage() {
     fetchListOfCourse();
   }, [currentPage, selectedData["checkAI"]]);
 
-  let suitableName = {
-    showCourse: {
-      current: "Course",
-      create: "Create Course",
-      header: "List of Courses",
-      detailHeader: "",
-      edit: "editCourse",
-      onClick: "createCourse",
-    },
-    showModule: {
-      current: "Module",
-      create: "Create Module",
-      header: "List of Modules",
-      detailHeader: "Course ",
-      edit: "editCourse",
-      onClick: "createModule",
-    },
-    showScenario: {
-      current: "Scenario",
-      create: "Create Scenario",
-      header: "List of Scenarios",
-      detailHeader: "Module ",
-      edit: "editModule",
-      onClick: "createScenario",
-    },
-  };
 
   useEffect(() => {
     localStorage.setItem("flow", "CourseManagement flow");
@@ -168,7 +142,7 @@ function ModulePage() {
                   handlePrevious();
                 }}
               />
-              <p>{suitableName[currentPage]?.detailHeader} Details</p>
+              <p>Course Details</p>
             </div>
             <hr />
             <DetailCard
@@ -188,7 +162,7 @@ function ModulePage() {
             <div className={styles.header}>
               <div className={styles.headerCol}>
                 <p style={{ width: "150px" }}>
-                  {suitableName[currentPage].header}
+                List of Modules
                 </p>
                 <div
                   style={{ display: "flex", alignItems: "center", gap: "4%" }}
@@ -196,7 +170,7 @@ function ModulePage() {
                   <div className={styles.searchBar}>
                     <input
                       type="text"
-                      placeholder={`Search ${suitableName[currentPage].current}`}
+                      placeholder={`Search Modules`}
                       onChange={(e) => {
                         setSearch(e.target.value);
                       }}
@@ -212,7 +186,7 @@ function ModulePage() {
                       handleCreateBtn();
                     }}
                   >
-                    {suitableName[currentPage].create}
+                    Create Module
                   </Button>
                 </div>
               </div>

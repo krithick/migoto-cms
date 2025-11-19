@@ -5,7 +5,6 @@
 // import AvatarSelection from '../AvatarSelection/AvatarSelection';
 // import { useLOIData } from '../../store';
 // import LVESelection from './LVESelection/LVESelection';
-// import ListofItems from '../ListofItems/ListofItems';
 // import AiScenarioBuilder from './AIScenario/AiScenarioBuilder';
 // import { useLocation, useNavigate } from 'react-router-dom';
 

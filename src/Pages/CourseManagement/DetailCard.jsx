@@ -59,7 +59,7 @@ function DetailCard({courseDetail, currentPage, setCurrentPage,setPage}) {
             </div>
 
             <div className={styles.thumbnail}>
-                 <img src={courseDetail?.thumbnail_url} alt="Image" />
+                 <img src={courseDetail?.thumbnail_url} alt="Image" loading="lazy"/>
             </div>
 
             <div className={styles.content}>
@@ -90,7 +90,7 @@ function DetailCard({courseDetail, currentPage, setCurrentPage,setPage}) {
                     {(userEmpId==courseDetail?.created_by)&& currentPage!="showAvatarInteraction" &&<button onClick={()=>{setCurrentPage(suitableName[currentPage].edit),setPage("baseDocument"),localStorage.setItem("flow",suitableName[currentPage].flow)}}>Edit <EditIcon/></button>}
                     {(userEmpId==courseDetail?.created_by)&& (currentPage=="showAvatarInteraction"&& getSessionStorage("template_id"))&&<button onClick={()=>{setCurrentPage(suitableName[currentPage].edit),setPage("baseDocument"),localStorage.setItem("flow",suitableName[currentPage].flow)}}>Edit <EditIcon/></button>}
                     {(userEmpId==courseDetail?.created_by && (currentPage=="showAvatarInteraction"&& getSessionStorage("template_id")))&&<button onClick={()=>{setCurrentPage(suitableName[currentPage].edit),setPage("editBaseDetail"),localStorage.setItem("flow",suitableName[currentPage].flow)}}>Edit Base Details<EditIcon/></button>}
-                    {(userEmpId==courseDetail?.created_by && (currentPage=="showAvatarInteraction"&& getSessionStorage("template_id"))) && <button onClick={()=>{setCurrentPage(suitableName[currentPage].edit),setPage("personaPopUp"),localStorage.setItem("flow",suitableName[currentPage].flow),setSessionStorage("AvatarAssignedTo","all")}}>Create avatar<EditIcon/></button>}
+                    {(userEmpId==courseDetail?.created_by && (currentPage=="showAvatarInteraction"&& getSessionStorage("template_id"))) && <button onClick={()=>{setCurrentPage(suitableName[currentPage].edit),setPage("personaPopUp"),localStorage.setItem("flow",suitableName[currentPage].flow),setSessionStorage("AvatarAssignedTo","all"),setSessionStorage("personaLimit",0)}}>Create avatar<EditIcon/></button>}
                 </div>
             </div>
         </div>  

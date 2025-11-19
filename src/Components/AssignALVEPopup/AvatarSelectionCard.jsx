@@ -13,7 +13,7 @@ function AvatarSelectionCard({ data, setSelectedId, selectedId,currentPage }) {
       onClick={() => {setSelectedId(data.id)}} >
       <div className={styles.imgContainer}>
         <img
-          src={data?.thumbnail_url ? data.thumbnail_url : `${import.meta.env.VITE_APP_URL}avatarImg.png`}
+          src={data?.thumbnail_url ? data.thumbnail_url : `${import.meta.env.VITE_APP_URL}avatarImg1.jpg`}
           alt=""
         />
         {/* image overlay content only for course,scenario,module */}

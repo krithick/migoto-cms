@@ -16,10 +16,21 @@ function PersonaCreation({setBack, setEditPage}) {
   const { selectedData, setSelectedData } = useLOIData();
 
   useEffect(() => {
-    CallPersonaPrompt()
+    CallPersonaPrompt() // this is for calling popUp
   }, []);
 
   const CallPersonaPrompt = () => {
+    const currentLimit = getSessionStorage("personaLimit") || 0;
+    
+    if (currentLimit >= 2) {
+      setMessage({
+        enable: true,
+        msg: "Persona Generation Limit exists",
+        state: false,
+      });
+      return;
+    }
+
     let modify = new Promise((resolve) => {
       setIsPreview({ enable: true, msg: "", value: "PersonaPrompt", resolve });
     });
@@ -36,6 +47,10 @@ function PersonaCreation({setBack, setEditPage}) {
     axios
       .post("scenario/personas/v2/generate-and-save", { ...payload })
       .then((res) => {
+        const currentLimit = getSessionStorage("personaLimit") || 0;
+        setSessionStorage("personaLimit", currentLimit + 1);
+        setCount(currentLimit + 1);
+        setIsPreview({ enable: false, msg: "", value: "", resolve: null });
         setPersona(res?.data?.persona);
         setSessionStorage("personaId",res?.data?.persona_id);
       })
@@ -46,6 +61,7 @@ function PersonaCreation({setBack, setEditPage}) {
           msg: "Persona Generation Failed Try again",
           state: false,
         });
+        setIsPreview({ enable: false, msg: "", value: "", resolve: null });
         CallPersonaPrompt()
       });
   };
@@ -132,13 +148,14 @@ function PersonaCreation({setBack, setEditPage}) {
       // Special handling for basic fields
       if (['name', 'age', 'gender', 'persona_type', 'role'].includes(key)) {
         return (
-          <div key={pathKey} className={styles.twoColumnBox1}>
+          <div key={pathKey} className={styles.singleColumnBox1}>
             <div className={styles.alignItem}>
               <div>{label} <sup>*</sup></div>
               {key === 'gender' ? (
                 <select
                   value={value || ''}
-                  onChange={(e) => handleEdit(currentPath, e.target.value)}
+                  onChange={(e) => CallPersonaPrompt()}
+                  // onChange={(e) => handleEdit(currentPath, e.target.value)}
                 >
                   <option value="male">Male</option>
                   <option value="female">Female</option>
@@ -332,7 +349,7 @@ function PersonaCreation({setBack, setEditPage}) {
           Cancel
         </div>
         <div className={styles.saveBtn} onClick={handleSubmit}>
-          Save & Continue
+          Save & Use
         </div>
       </div>}
     </div>

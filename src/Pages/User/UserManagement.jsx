@@ -81,7 +81,7 @@ function UserManagement() {
       setIsPreview({
         enable: true,
         msg: [1],
-        value: "deletePopUp",
+        value: "deletePopUpUser",
         resolve,
       });
     });

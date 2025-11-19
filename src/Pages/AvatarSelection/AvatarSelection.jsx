@@ -70,7 +70,6 @@ function AvatarSelection() {
     setSelectedData("Language",null)
     setSelectedData("Environment",null)
     setSelectedData("Voice",null)
-    // setCurrentPage("listofitem")
   }
 
   const scrollRef = useRef(null);

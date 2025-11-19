@@ -65,7 +65,7 @@ const [loading, setLoading] = useState(false)
       .catch((error) => {
         setMessage({
           enable: true,
-          msg: error?.response?.data?.detail || "Login Failed",
+          msg: "Login Failed",
           state: false,
         });
         setLoading(false);

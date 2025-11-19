@@ -85,11 +85,11 @@ function CoursePage() {
                 <div className={styles.headerColCourse}>
                   <p style={{ width: "150px" }}>{suitableName[currentPage].header}</p>
                   <div style={{display:"flex",alignItems:"center",gap:"4%"}}>
-                    <div className={styles.searchBar}><input type="text" placeholder={`Search ${suitableName[currentPage].current}`} onChange={(e) => { setSearch(e.target.value) }} />
+                    <div className={styles.searchBar}><input type="text" placeholder={`Search Course`} onChange={(e) => { setSearch(e.target.value) }} />
                       <SearchIcon className={styles.searchIconSvg} />
                     </div>
                     <Button type="primary"shape="round"size={size}className={styles.CreteBtn}
-                      onClick={() => {localStorage.setItem("flow","CourseManagement flow"),navigate(suitableName[currentPage].onClick),clearScenarioData(),setSelectedData("avatarSelection",null),setSelectedData("ListofAvatars",null)}}>
+                      onClick={() => {localStorage.setItem("flow","CourseManagement flow"),navigate("createCourse"),clearScenarioData(),setSelectedData("avatarSelection",null),setSelectedData("ListofAvatars",null)}}>
                       {suitableName[currentPage].create}
                     </Button>
                   </div>

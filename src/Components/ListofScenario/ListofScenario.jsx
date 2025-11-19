@@ -4,7 +4,6 @@ import { useLOIData, useModeData, useUserPopupStore } from "../../store.js";
 import axios from "../../service";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import SearchIcon from "../../Icons/SearchIcon.jsx";
-import CreateCourseIcon from "../../Icons/CreateCourseIcon.jsx";
 import ListofMode from "../../Pages/ListofItems/ListofMode.jsx";
 import FilterIcon from "../../Icons/FilterIcon.jsx";
 import Card from "../Card/Card.jsx";

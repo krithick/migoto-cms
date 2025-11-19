@@ -49,7 +49,7 @@ export default function PersonaPromptPopUp() {
       custom_prompt: promptText
     };
     if (isPreview.resolve) isPreview.resolve(data);
-    setIsPreview({ enable: false, msg: "", value: "", resolve: null });
+    // setIsPreview({ enable: false, msg: "", value: "", resolve: null });
   };
 
   const items = useMemo(() => {

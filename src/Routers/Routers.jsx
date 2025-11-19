@@ -1,22 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect, Suspense } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import Dashboard from "../Pages/Dashboard/Dashboard";
-import PersonaPage from "../Pages/PersonaPage/PersonaPage";
 import BulkListPreview from "../Components/UplaodAction/BulkListPreview/BulkListPreview";
-import AvatarManagement from "../Pages/AvatarManagement/AvatarManagement";
-import SceneCanvas from "../Pages/AvatarCreation/SceneCanvas";
 import { UpdateTimeline } from "../Components/Timeline/UpdateTImeLine";
 import { useLOIData, usePreviewStore } from "../store";
 import { getSessionStorage } from "../sessionHelper";
-import DashboardRoute from "./DashboardRoute";
-import CourseRoute from "./CourseRoute";
-import UserRoute from "./UserRoute";
-import AdminRoute from "./AdminRoute";
 import NotFound from "../Utils/NotFound/NotFound";
+import PageLoader from "../Components/Loader/PageLoader";
 
+const Dashboard = React.lazy(()=> import("../Pages/Dashboard/Dashboard"))
+const DashboardRoute = React.lazy(()=> import("./DashboardRoute"))
+const CourseRoute = React.lazy(()=> import("./CourseRoute"))
+const UserRoute = React.lazy(()=> import("./UserRoute"))
+const AdminRoute = React.lazy(()=> import("./AdminRoute"))
 
 function Routers() {
-  const { selectedData, setSelectedData } = useLOIData();
+  const { setSelectedData } = useLOIData();
   const { setIsPreview } = usePreviewStore();
   let path = window.location.pathname;
   
@@ -189,19 +187,23 @@ function Routers() {
   }, [window.location.pathname]);
   return (
     <>
-      <DashboardRoute />
-      <CourseRoute />
-      <UserRoute />
-      <AdminRoute />
+      {/* <Suspense fallback={<PageLoader />}> */}
+        <DashboardRoute />
+        <CourseRoute />
+        <UserRoute />
+        <AdminRoute />
       <Routes>
-        <Route path="dashboard" element={<Dashboard />} />
-        <Route path="avatarManagement" element={<AvatarManagement />} />
-        {/* <Route path="createAvatar/assignCourse" element={<ListofItems />} /> */}
-        <Route path="createAvatar/createAvatar/personaCreation" element={<PersonaPage />}/>
+        <Route path="dashboard" element={
+          <Suspense fallback={<PageLoader />}>
+            <Dashboard />
+          </Suspense>
+        } />
+        {/* <Route path="avatarManagement" element={<AvatarManagement />} /> */}
         <Route path="bulkList" element={<BulkListPreview />} />
-        <Route path="use" element={<SceneCanvas />} />
+        <Route path="use" element={<PageLoader />} />
         {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>
+      {/* </Suspense> */}
     </>
   );
 }

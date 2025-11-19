@@ -1,77 +1,71 @@
 import React, { useEffect, useState } from "react";
 import styles from "./ReportCard.module.css";
 import axios from "../../service";
-import { useReportStore, useUserPopupStore } from "../../store";
+import { useReportStore, useUserPopupStore, usePreviewStore } from "../../store";
 import LoadingSpinner from "../Loaders/LoadingSpinner";
 import LoaderFull from "../Loaders/LoaderFull";
 import Loader from "../Loader/Loader";
 
 const ReportCard = () => {
-  const [userReport, setUserReport] = useState();
-  const [conversationHistory, setConversationHistory] = useState();
-  const [loading, setLoading] = useState(false);
+  const { isPreview, setIsPreview } = usePreviewStore();
+  const userReport = isPreview.msg?.report;
+  const conversationHistory = isPreview.msg?.convo;
   let { report, setReport } = useReportStore();
   const { message, setMessage } = useUserPopupStore();
 
   const arr = [
     {
       name: "Domain knowledge",
-      value: userReport?.user_domain_knowledge?.overall_score,
+      value: userReport?.user_domain_knowledge?.overall_score||0,
     },
     {
       name: "Communication clarity",
-      value: userReport?.user_communication_clarity?.overall_score,
+      value: userReport?.user_communication_clarity?.overall_score||0,
     },
     {
       name: "Engagement Quality",
-      value: userReport?.user_engagement_quality?.overall_score,
+      value: userReport?.user_engagement_quality?.overall_score||0,
     },
     {
       name: "Learning Adaptation",
-      value: userReport?.user_learning_adaptation?.overall_score,
+      value: userReport?.user_learning_adaptation?.overall_score||0,
     },
     {
       name: "Problem solving",
-      value: userReport?.user_problem_solving?.overall_score,
+      value: userReport?.user_problem_solving?.overall_score||0,
     },
   ];
 
-  const fetchReportFromSessionId = async () => {
-    const token = localStorage.getItem("migoto-cms-token");
-    const headers = {
-      "Content-Type": "multipart/form-data", // Let browser set boundary
-      authorization: token,
-    };
+  // const fetchReportFromSessionId = async () => {
 
-    try {
-      setLoading(true);
-      const res = await axios.get(
-        `sessionAnalyser/${report?.id}`,
-        { headers }
-      );
-      const convoData = await axios.get(
-        `chat/history/${report?.id}`,
-        { headers }
-      );
-      setUserReport(res.data);
-      setConversationHistory(convoData.data);
-      setLoading(false)
+  //   try {
+  //     setLoading(true);
+  //     const res = await axios.get(
+  //       `sessionAnalyser/${report?.id}`,
+  //     );
+  //     const convoData = await axios.get(
+  //       `chat/history/${report?.id}`,
+  //       { headers }
+  //     );
+  //     setUserReport(res.data);
+  //     setConversationHistory(convoData.data);
+  //     setLoading(false)
 
-    } catch (e) {
-      console.log("Unable to fetch report data", e);
-      setLoading(false)
-      setMessage({
-        enable: true,
-        msg: "Something Went Wrong",
-        state: false,
-      })
+  //   } catch (e) {
+  //     console.log("Unable to fetch report data", e);
+  //     setLoading(false)
+  //     setMessage({
+  //       enable: true,
+  //       msg: "Something Went Wrong",
+  //       state: false,
+  //     })
 
-    }
-  };
+  //   }
+  // };
 
-  useEffect(() => {
-    fetchReportFromSessionId();
-  }, []);
+  // useEffect(() => {
+  //   fetchReportFromSessionId();
+  // }, []);
 
   return (
     <>
@@ -104,7 +98,7 @@ const ReportCard = () => {
                       userReport?.user_domain_knowledge?.overall_score +
                       userReport?.user_engagement_quality?.overall_score +
                       userReport?.user_learning_adaptation?.overall_score +
-                      userReport?.user_problem_solving?.overall_score}
+                      userReport?.user_problem_solving?.overall_score || 0}
                 </p>
               </div>
               <div className={styles.metrics}>
@@ -207,7 +201,10 @@ const ReportCard = () => {
         <div className={styles.footer}>
           <button
             className={styles.cancelBtn}
-            onClick={() => {setReport({ state: false, id: null })}}
+            onClick={() => {
+              setReport({ state: false, id: null });
+              setIsPreview({ enable: false, msg: "", value: "", resolve: null });
+            }}
           >
             Close
           </button>

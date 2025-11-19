@@ -30,6 +30,7 @@ function LVESelection({}) {
   function filterVoicesByAllowedLanguages(voices, allowedLanguages) {
     return voices.filter(voice => allowedLanguages?.includes(voice.language_code));
   }
+  
     const fetchLanguage = () => {
     axios
     .get(`/languages/`)
@@ -188,7 +189,6 @@ function LVESelection({}) {
         });
     }
   }
-
 
     const handleAssignCourse = async (userId) => {
       
@@ -371,7 +371,7 @@ function LVESelection({}) {
           // use res directly here instead of waiting for Zustand update
           handleAssignCourse(aRes);
         });
-    }
+    } 
 
   return (
     <div className={styles.avatarContainer}>

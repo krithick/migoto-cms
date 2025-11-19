@@ -102,7 +102,7 @@ export default function UserCourse({val,Swap}) {
                       <div className={styles.subValueTitle}>
                         Completed Courses
                       </div>
-                      <div className={styles.subValueNumber2}>{data?.filter(course => course?.completed).length}
+                      <div className={styles.subValueNumber2}>{data?.filter(course => course?.completed)?.length}
                       </div>
                     </div>
                   </div>
@@ -115,7 +115,7 @@ export default function UserCourse({val,Swap}) {
                       <div className={styles.subValueTitle}>
                         Pending Courses
                       </div>
-                      <div className={styles.subValueNumber3}>{data?.filter(course => course?.completed=="false").length}</div>
+                      <div className={styles.subValueNumber3}>{data?.filter(course => course?.completed=="false")?.length}</div>
                     </div>
                   </div>
                 </div>
@@ -150,34 +150,6 @@ export default function UserCourse({val,Swap}) {
 
               </>
             )}
-
-            {/* {viewAll && page == "In progress courses" ? (
-              <>
-                <div className={styles.sectionNewContent2}>
-                  {newdata.map((item, index) => {
-                    return (
-                      <Card data={item} key={index} currentPage={currentPage} />
-                    );
-                  })}
-                </div>
-              </>
-            ) : (
-              <></>
-            )}
-
-            {viewAll && page == "Completed courses" ? (
-              <>
-                <div className={styles.sectionNewContent2}>
-                  {newdata.map((item, index) => {
-                    return (
-                      <Card data={item} key={index} currentPage={currentPage} />
-                    );
-                  })}
-                </div>
-              </>
-            ) : (
-              <></>
-            )} */}
           </div>
         </div>
       </div>

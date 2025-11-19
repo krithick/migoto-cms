@@ -73,7 +73,7 @@ function BulkListPreview() {
           setIsPreview({
             enable: true,
             msg: [createdUsers?.length],
-            value: "bulkPopUp",
+            value: "bulkPopUpUser",
             resolve
           });
         });

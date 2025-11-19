@@ -11,21 +11,23 @@ function ConfirmationPopUp() {
   let navigate = useNavigate()
 
   let suitableName = {
-    bulkPopUp:{
+    bulkPopUpUser:{
       current:"Course",
       color: "blue",
       header: "Bulk Assign",
       content:"Course will be assigned to all users uploaded from the document. Please double-check the data before proceeding with the Process",
       image:`${import.meta.env.VITE_APP_URL}popupContent1.png`,
       onClick:`${import.meta.env.VITE_APP_URL}createUser/assignCourse/bulkAssign`,
+      subTitle: "Selected User"
     },
-    deletePopUp:{
+    deletePopUpUser:{
       current:"Module",
       color: "red",
       header: "Delete",
       content:"Are you sure you want to permanently delete this user from your assigned list? This action cannot be undone. The user’s course access and progress data will be lost. ",
       image:`${import.meta.env.VITE_APP_URL}deletePopUp.png`,
-      onClick:"createModule"
+      onClick:"createModule",
+      subTitle: "Selected User"
     },
     unAssignPopUp:{
       current:"Module",
@@ -33,11 +35,21 @@ function ConfirmationPopUp() {
       header: "Unassign",
       content:"Are you sure you want to unassign this user from Admin 1 assigned list? They will still have access to their courses and progress will be retained",
       image:`${import.meta.env.VITE_APP_URL}UnassignPopUp.png`,
-      onClick:"createModule"
+      onClick:"createModule",
+      subTitle: "Selected User"
+
+    },
+    deleteAvatar:{
+      color: "red",
+      header: "Delete",
+      content:"Are you sure you want to delete the avatar from this scenario ? This action cannot be undone.",
+      image:`${import.meta.env.VITE_APP_URL}deletePopUp.png`,
+      onClick:"createModule",
+      subTitle: "Selected Avatar"
     },
   }
 
-  if(!isPreview?.enable || !["bulkPopUp", "deletePopUp", "unAssignPopUp"].includes(isPreview.value)){
+  if(!isPreview?.enable || !["bulkPopUpUser", "deletePopUpUser", "unAssignPopUp", "deleteAvatar"].includes(isPreview.value)){
     return null;
   }
 
@@ -67,7 +79,7 @@ function ConfirmationPopUp() {
       </div>
       <div className={styles.PopupUser}>
         <div className={styles.leftContent}>
-          <div>Selected Users :</div>
+          <div>{suitableName[isPreview.value]?.subTitle} :</div>
           <p className={styles.Count}>{isPreview.msg[0]}</p>
         </div>
         <div className={styles.rightContent}>

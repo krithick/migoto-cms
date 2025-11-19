@@ -17,7 +17,6 @@ import { clearMigotoStorage } from "../../local.js";
 
 function HeroPage() {
   const navigate = useNavigate();
-  let { report } = useReportStore();
   const { isPreview, setIsPreview } = usePreviewStore();
   const { selectedData, setSelectedData } = useLOIData();
   const { loaderType } = useLoaderStore();
@@ -125,7 +124,7 @@ function HeroPage() {
           {/* {(loaderType === "mini")&&<AILoader />} */}
             <Routers />
             { JSON.parse(localStorage.getItem("timeLine")) && <TimeLine />}
-            {report.state && <ReportCard />}
+            {/* {report.state && <ReportCard />} */}
             {/* <SelectedData /> */}
             {/* <AILoader /> */}
             {/* {userPopup.state && <UserSelect />} */}

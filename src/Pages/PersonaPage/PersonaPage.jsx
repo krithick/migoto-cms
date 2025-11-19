@@ -9,7 +9,6 @@ function PersonaPage({setEditPage, setBack}) {
     <>
         {currentPage=="Persona Creation" && <PersonaCreation currentPage={currentPage} setCurrentPage={()=>{setCurrentPage("Persona Builder")}} setEditPage={setEditPage} setBack={setBack} />}
         {currentPage=="Persona Builder"&& <PersonaBuilder currentPage={currentPage} setCurrentPage={()=>{setCurrentPage("Persona Creation")}}/>}
-        
     </>
   )
 }

@@ -7,6 +7,7 @@ import { useUserPopupStore } from "../../store.js";
 import { useNavigate } from "react-router-dom";
 import { UpdateTimeline } from "../Timeline/UpdateTImeLine.js";
 import { div } from "three/tsl";
+import { ImageLoader } from "../ImageLoader.jsx";
 
 function ModuleList({
   payload,
@@ -172,7 +173,11 @@ function ModuleList({
               />
             </div>
             <div className={styles.image}>
-              <img src={item?.thumbnail_url} alt="" />
+              <ImageLoader
+                src={item?.thumbnail_url}
+                loading="lazy" 
+                onError={(e) => (e.target.src = `${import.meta.env.VITE_APP_URL}NovacLogo.ico`)} 
+                />
             </div>
             <div className={styles.text}>
               <p>Module Title</p>
@@ -284,7 +289,12 @@ function ModuleList({
                   />
                 </div>
                 <div className={styles.image}>
-                  <img src={scenario.thumbnail_url} alt="" />
+                  <ImageLoader 
+                    src={scenario?.thumbnail_url}
+                    loading="lazy"
+                    onError={(e) => (e.target.src = `${import.meta.env.VITE_APP_URL}NovacLogo.ico`)}
+                  />
+                  {/* <img src={scenario.thumbnail_url} alt="" /> */}
                 </div>
                 <div className={styles.text}>
                   <p>Scenario Title</p>

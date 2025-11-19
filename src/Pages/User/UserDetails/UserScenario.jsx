@@ -21,7 +21,6 @@ function UserScenario({val,Swap}) {
   const [title, setTitle] = useState("Title")
   const [header, setHeader] = useState("moduleHeader")
 
-  let { setReport } = useReportStore();
 
   let navigate = useNavigate();
   let { id } = useParams();

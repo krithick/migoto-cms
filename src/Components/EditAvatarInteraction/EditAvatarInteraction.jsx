@@ -142,8 +142,12 @@ function EditAvatarInteraction({selected, modeData, setCurrentPage,setPage}) {
           </div>
           <div className={styles.footer}>
             {userEmpId==modeData?.created_by && <button className={styles.addDel} 
-            // onClick={()=>{handlePopUp("avatarSelection")}}
-            onClick={()=>{localStorage.setItem("flow","CourseManagement & editScenario flow"),setCurrentPage(),setPage(),setSessionStorage("AvatarAssignedTo","single")}}
+            onClick={()=>{
+              localStorage.setItem("flow","CourseManagement & editScenario flow"),
+              setCurrentPage(),
+              setPage(),
+              setSessionStorage("AvatarAssignedTo","single"),
+              setSessionStorage("personaLimit",0)}}
             > Create Avatar</button>}
           </div>
         </>
@@ -243,16 +247,15 @@ function EditAvatarInteraction({selected, modeData, setCurrentPage,setPage}) {
                       </Radio.Group>
                     </div>
                     <div className={styles.rightSection}>
-                      {value==1&&<img src={import.meta.env.VITE_LAYOUT1} alt={`Layout ${value}`} />}
-                      {value==2&&<img src={import.meta.env.VITE_LAYOUT2} alt={`Layout ${value}`} />}
-                      {value==3&&<img src={import.meta.env.VITE_LAYOUT3} alt={`Layout ${value}`} />}
+                      {value==1 && <img src={import.meta.env.VITE_LAYOUT1} alt={`Layout ${value}`} />}
+                      {value==2 && <img src={import.meta.env.VITE_LAYOUT2} alt={`Layout ${value}`} />}
+                      {value==3 && <img src={import.meta.env.VITE_LAYOUT3} alt={`Layout ${value}`} />}
                     </div>
             </div>
             </>
           ),
           style: panelStyle,
         },
-    
   ];
 
   return (

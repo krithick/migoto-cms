@@ -46,7 +46,6 @@ export default function EditUser() {
     axios
       .put(`/auth/users/${val.id}`, formData)
       .then((res) => {
-        console.log('res: ', res.data);
         setSelectedData("userRefresh", Date.now());
         setSessionStorage("userData", res);
         setMessage({

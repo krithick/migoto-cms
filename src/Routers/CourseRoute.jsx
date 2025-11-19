@@ -1,8 +1,5 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import { Route, Routes } from 'react-router-dom'
-import CoursePage from '../Pages/CourseManagement/CoursePage'
-import UplaodAction from '../Components/UplaodAction/UploadAction'
-import ListofItems from '../Pages/ListofItems/ListofItems'
 import CreateCourse from '../Pages/Course/CreateCourse'
 import CreateModule from '../Pages/Course/CreateModule'
 import CreateScenario from '../Pages/Course/CreateScenario'
@@ -10,17 +7,20 @@ import EditDocument from '../Pages/Course/AIScenario/EditDocument/EditDocument'
 import DocumentUploadFlow from '../Pages/Course/DocUploadFlow/DocumentUploadFlow'
 import AvatarSelection from '../Pages/AvatarSelection/AvatarSelection'
 import LVESelection from '../Pages/Course/LVESelection/LVESelection'
-import AIScenario from '../Pages/Course/AIScenario/AIScenario'
 import AvatarCreation from '../Pages/AvatarCreation/AvatarCreation'
 import PersonaPage from '../Pages/PersonaPage/PersonaPage'
-import ModulePage from '../Pages/CourseManagement/ModulePage'
-import ScenarioPage from '../Pages/CourseManagement/ScenarioPage'
-import AvatarInteraction from '../Pages/CourseManagement/AvatarInteraction/AvatarInteraction'
+import PageLoader from '../Components/Loader/PageLoader'
+
+const CoursePage = React.lazy(() => import('../Pages/CourseManagement/CoursePage'))
+const ModulePage = React.lazy(() => import('../Pages/CourseManagement/ModulePage'))
+const ScenarioPage = React.lazy(() => import('../Pages/CourseManagement/ScenarioPage'))
+const AvatarInteraction = React.lazy(() => import('../Pages/CourseManagement/AvatarInteraction/AvatarInteraction'))
 
 function CourseRoute() {
   return (
     <>
         {/* --------------courseManagement-------------- */}
+        <Suspense fallback={<PageLoader />}>
           <Routes>
              <Route path="courseManagement" element={<CoursePage />} />
              <Route path="courseManagement/showModule" element={<ModulePage />} />
@@ -70,7 +70,7 @@ function CourseRoute() {
             <Route path="courseManagement/showScenario/createScenario/Assign" element={<LVESelection />} />
 
               </Routes>
-
+        </Suspense>
     </>
   )
 }

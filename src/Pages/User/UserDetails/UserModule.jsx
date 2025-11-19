@@ -22,7 +22,6 @@ function UserModule({val,Swap}) {
   const [title, setTitle] = useState("Title")
   const [header, setHeader] = useState("courseHeader")
 
-  let { setReport } = useReportStore();
 
   let navigate = useNavigate();
   let { id } = useParams();

@@ -97,41 +97,6 @@ function ScenarioPage() {
     fetchListOfCourse();
   }, [currentPage, selectedData["checkAI"]]);
 
-  let suitableName = {
-    showCourse: {
-      current: "Course",
-      create: "Create Course",
-      header: "List of Courses",
-      detailHeader: "",
-      edit: "editCourse",
-      onClick: "createCourse",
-    },
-    showModule: {
-      current: "Module",
-      create: "Create Module",
-      header: "List of Modules",
-      detailHeader: "Course ",
-      edit: "editCourse",
-      onClick: "createModule",
-    },
-    showScenario: {
-      current: "Scenario",
-      create: "Create Scenario",
-      header: "List of Scenarios",
-      detailHeader: "Module ",
-      edit: "editModule",
-      onClick: "createScenario",
-    },
-    showAvatarInteraction: {
-      current: "AvatarInteraction",
-      create: "Create Scenario",
-      header: "Avatar Interaction",
-      detailHeader: "Scenario ",
-      edit: "editScenario",
-      flow: "CourseManagement & editScenario flow",
-    },
-  };
-
   useEffect(() => {
     localStorage.setItem("flow", "CourseManagement flow");
     let path = window.location.pathname;
@@ -164,7 +129,7 @@ function ScenarioPage() {
     sessionStorage.setItem("courseId", getSessionStorage("showCourse"));
     sessionStorage.setItem("moduleId", getSessionStorage("showModule"));      //corseManagement flow creating module without creating course
 
-    navigate(suitableName[currentPage].onClick),
+    navigate("createScenario"),
       clearScenarioData(),
       setSelectedData("avatarSelection", null),
       setSelectedData("ListofAvatars", null);
@@ -181,7 +146,7 @@ function ScenarioPage() {
                   handlePrevious();
                 }}
               />
-              <p>{suitableName[currentPage]?.detailHeader} Details</p>
+              <p>Module Details</p>
             </div>
             <hr />
             <DetailCard
@@ -201,7 +166,7 @@ function ScenarioPage() {
             <div className={styles.header}>
               <div className={styles.headerCol}>
                 <p style={{ width: "150px" }}>
-                  {suitableName[currentPage].header}
+                List of Scenarios
                 </p>
                 <div
                   style={{ display: "flex", alignItems: "center", gap: "4%" }}
@@ -209,7 +174,7 @@ function ScenarioPage() {
                   <div className={styles.searchBar}>
                     <input
                       type="text"
-                      placeholder={`Search ${suitableName[currentPage].current}`}
+                      placeholder={`Search Scenario`}
                       onChange={(e) => {
                         setSearch(e.target.value);
                       }}
@@ -225,7 +190,7 @@ function ScenarioPage() {
                       handleCreateBtn();
                     }}
                   >
-                    {suitableName[currentPage].create}
+                    Create Scenario
                   </Button>
                 </div>
               </div>

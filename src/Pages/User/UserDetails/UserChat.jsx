@@ -5,7 +5,7 @@ import EditIcon from "../../../Icons/EditIcon";
 import BackIcon from "../../../Icons/BackIcon";
 import styles from "./UserCourse.module.css";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { useLOIData, useReportStore } from "../../../store";
+import { useLOIData, usePreviewStore, useReportStore, useUserPopupStore } from "../../../store";
 import axios from "../../../service";
 import Card from "../../../Components/Card/Card";
 import UserDetailSideBar from "../../../Components/UserDetailBox/UserDetailSideBar";
@@ -22,6 +22,8 @@ function UserChat({val,Swap}) {
   let [currentPage, setCurrentPage] = useState("sessions");
   const [title, setTitle] = useState("Title")
   const [header, setHeader] = useState("scenarioHeader")
+  const { message, setMessage } = useUserPopupStore();
+  const {isPreview, setIsPreview} = usePreviewStore();
 
   let { setReport } = useReportStore();
 
@@ -70,6 +72,41 @@ function UserChat({val,Swap}) {
     let path = window.location.pathname.replace("chats","scenario")
     navigate(path)
   }
+
+  const fetchReportFromSessionId = async (report) => {
+
+    try {
+      // setLoading(true);
+      const res = await axios.get(
+        `sessionAnalyser/${report}`,
+      );
+      const convoData = await axios.get(
+        `chat/history/${report}`,
+      );
+
+      let modify = new Promise((resolve)=>{
+        setIsPreview({
+          enable: true,
+          msg: {"report":res.data,"convo": convoData.data},
+          value: "UserReport",
+          resolve,
+        });
+      })
+
+      // setUserReport(res.data);
+      // setConversationHistory(convoData.data);
+      // setLoading(false)
+
+    } catch (e) {
+      console.log("Unable to fetch report data", e);
+      setMessage({
+        enable: true,
+        msg: "Something Went Wrong",
+        state: false,
+      })
+
+    }
+  };
 
   return (
     <div className={styles.tab}>
@@ -150,7 +187,7 @@ function UserChat({val,Swap}) {
             <div className={styles.detailBoxMain}>
               {(
                 <table>
-                  <thead>
+                  <thead className={styles.chatTableHeader}>
                     <tr>
                       <td className={styles.textCenter}>S.no</td>
                       <td>Scenario Title</td>
@@ -159,7 +196,6 @@ function UserChat({val,Swap}) {
                     </tr>
                   </thead>
                   <tbody>
-                    {/* {selectedScenario ? ( */}
                     <>
                       {data?.map((v, i) => (
                         <>
@@ -170,9 +206,10 @@ function UserChat({val,Swap}) {
                               {getDateFromISOString(v.session_last_updated)}
                             </td>
                             <td
-                              className={styles.report}
+                              className={`${styles.report} ${styles.textCenter}`}
                               onClick={() =>
-                                setReport({ state: true, id: v?.session_id })
+                                // setReport({ state: true, id: v?.session_id })
+                                fetchReportFromSessionId(v?.session_id)
                               }
                             >
                               View Report
@@ -181,63 +218,7 @@ function UserChat({val,Swap}) {
                         </>
                       ))}
                      
-                      {/* <tr>
-                          <td>5</td>
-                          <td>Completed Date</td>
-                          <td>{data.completedDate}</td>
-                        </tr>
-                        <tr>
-                          <td>6</td>
-                          <td>Description</td>
-                          <td>{selectedScenario.description}</td>
-                        </tr> */}
                     </>
-                    {/* ) : (
-                      currentList.map((item, index) => (
-                        <tr key={`${index}-row`}>
-                          <td>{index + 1}</td>
-                          <td>{item.title}</td>
-                          {selectedModule ? (
-                            <>
-                              <td>{item.assignedDate}</td>
-                              <td className={styles.statusItem}>
-                                {item.status}
-                              </td>
-                              <td>{item.completedDate}</td>
-                              <td
-                                onClick={() => {
-                                  setSelectedScenario(item);
-                                }}
-                              >
-                                <div className={styles.viewDetail}>
-                                  <div>View Detail</div>
-                                  <div>svg</div>
-                                </div>
-                              </td>
-                            </>
-                          ) : (
-                            <>
-                              <td>{item.assigned}</td>
-                              <td>{item.status}</td>
-                              <td>{item.Assigneddate}</td>
-                              <td>{item.Completeddate}</td>
-                              <td
-                                onClick={() => {
-                                  setSelectedModule(item);
-                                  setSelectedScenarios(scenarioData);
-                                  handleClick(item.title);
-                                }}
-                              >
-                                <div className={styles.viewDetail}>
-                                  <div>View Detail</div>
-                                  <div>svg</div>
-                                </div>
-                              </td>
-                            </>
-                          )}
-                        </tr>
-                      ))
-                    )} */}
                   </tbody>
                 </table>
               )}

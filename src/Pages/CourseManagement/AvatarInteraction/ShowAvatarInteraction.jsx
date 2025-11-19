@@ -69,7 +69,6 @@ function ShowAvatarInteraction({ activeMode , setCurrentPage,setPage}) {
   return (
     <>
       <div className={styles.loiBodyOuter}>
-
         {/* -------Header------- */}
         {/* <div className={styles.loiBodyHead}> */}
           <div className={styles.loiHeader}>

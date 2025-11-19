@@ -3,7 +3,7 @@ import styles from "./CreateCourse.module.css";
 import CourseForm from "./CourseForm";
 import { useLOIData } from "../../store";
 import AiScenarioBuilder from "./AIScenario/AiScenarioBuilder";
-import { getSessionStorage } from "../../sessionHelper";
+import { getSessionStorage, setSessionStorage } from "../../sessionHelper";
 import ScenarioConfirmation from "./ScenarioConfirmation";
 
 function CreateScenario({
@@ -43,6 +43,7 @@ function CreateScenario({
                     setSelectedData("supportDocs", null),
                     setSelectedData("avatarSelection", null);
                     setSelectedData("ListofAvatars", null);
+                    setSessionStorage("personaLimit",0)
                   }}
                   className={styles.gnrBtn}
                 >

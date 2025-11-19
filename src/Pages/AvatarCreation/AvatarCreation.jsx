@@ -149,7 +149,7 @@ function AvatarCreation({setEditPage}) {
 
     <div className={styles.ContainerContent}>
     {activeState == "Avatar" && <SceneCanvas setActiveState={()=>{setActiveState("Avatarview")}}/>}
-      {activeState == "Avatarview" && <AvatarViewer backFunction={()=>backFunction()}/>}
+    {activeState == "Avatarview" && <AvatarViewer backFunction={()=>backFunction()}/>}
     </div>
       </div>
     </div>

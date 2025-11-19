@@ -41,9 +41,9 @@ function CourseCard({ data, currentPage, index }) {
         data.thumbnail_url &&
         data.thumbnail_url !== "string" &&
         data.thumbnail_url !== null ? (
-          <img src={data.thumbnail_url} alt="" />
+          <img src={data.thumbnail_url} alt=""  loading="lazy"/>
         ) : (
-          <img src={`${import.meta.env.VITE_APP_URL}avatarImg.png`} alt="" />
+          <img src={`${import.meta.env.VITE_APP_URL}avatarImg1.jpg`} loading="lazy" alt="" />
         )}
 
         {/* {currentPage == "DocumentFile" && index == 2 && <img src='/example1.jpg' alt="" />} */}

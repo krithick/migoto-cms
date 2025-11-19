@@ -2,13 +2,11 @@ import React, { useEffect, useState } from "react";
 import styles from "../EditDocument/EditDocument.module.css";
 import BackIcon from "../../../../Icons/BackIcon";
 import AddIcon from "../../../../Icons/AddIcon";
-import SectionCategoryPopup from "../../../User/SectionCategoryPopup/SectionCategoryPopup";
 import {
   useLOIData,
   usePreviewStore,
   useUserPopupStore,
 } from "../../../../store";
-import { div } from "three/tsl";
 import PlusIcon from "../../../../Icons/PlusIcon";
 import axios from "../../../../service";
 import Loader from "../../../../Components/Loader/Loader";

@@ -99,6 +99,7 @@ function DocumentUploadFlow({ currentPage, setCurrentPage,setUploadPage }) {
   }
 
   const handleNext = () =>{
+    setSessionStorage("personaLimit",0)
     let path = window.location.pathname;
     const cleanedPath = path?.replace("/videoPdf", "/personaCreation");
     navigate(cleanedPath)

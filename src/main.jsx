@@ -4,8 +4,6 @@ import './index.css'
 import App from './App.jsx'
 import Login from './Pages/Login/Login.jsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import UplaodAction from './Components/UplaodAction/UploadAction.jsx'
-import Dashboard from './Pages/Dashboard/Dashboard.jsx'
 import NotFound from './Utils/NotFound/NotFound.jsx'
 
 const router = createBrowserRouter([
@@ -18,12 +16,12 @@ const router = createBrowserRouter([
   {
     path: `${import.meta.env.VITE_APP_URL}*`,
     element: <App />,
-    children: [
-      {
-        path: 'dashboard',
-        element: <Dashboard />,
-      },
-    ]
+    // children: [
+    //   {
+    //     path: 'dashboard',
+    //     element: <Dashboard />,
+    //   },
+    // ]
   },
   // {
   //   path: '*',
