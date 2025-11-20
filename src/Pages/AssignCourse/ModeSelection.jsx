@@ -48,13 +48,13 @@ function ModeSelection({setCurrentPage, assign}) {
           <div 
             key={index} 
             className={`${styles.LTSCard} ${selectedModes.includes(item.key) ? styles.selected : ''}`}
-            onClick={() => {
-              setSelectedModes(prev => 
-                prev.includes(item.key) 
-                  ? prev.filter(mode => mode !== item.key)
-                  : [...prev, item.key]
-              );
-            }}
+            // onClick={() => {
+            //   setSelectedModes(prev => 
+            //     prev.includes(item.key) 
+            //       ? prev.filter(mode => mode !== item.key)
+            //       : [...prev, item.key]
+            //   );
+            // }}
           >
             <div className={styles.iconContainer}>{item.icon}</div>
             <div className={styles.title}>{item.title}</div>
@@ -81,7 +81,13 @@ function ModeSelection({setCurrentPage, assign}) {
                   );
                 }}
               />
-              <label>
+              <label onClick={() => {
+                setSelectedModes(prev => 
+                  prev.includes(item.key) 
+                    ? prev.filter(mode => mode !== item.key)
+                    : [...prev, item.key]
+                );
+              }}>
                 {selectedModes.includes(item.key) ? `${item.title} Selected` : `Click to select ${item.title}`}
               </label>
             </div>

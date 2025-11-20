@@ -12,9 +12,9 @@
     z-index: 99;
 }
 
-textArea{
+/* textArea{
     width: 100%;
-}
+} */
 .red{
     border: solid 2px red !important;
     scale: 1.05;

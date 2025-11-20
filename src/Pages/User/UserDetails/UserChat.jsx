@@ -11,6 +11,7 @@ import Card from "../../../Components/Card/Card";
 import UserDetailSideBar from "../../../Components/UserDetailBox/UserDetailSideBar";
 import { getSessionStorage } from "../../../sessionHelper";
 import { Button } from "antd";
+import DeleteIcon from "../../../Icons/DeleteIcon";
 
 
 function UserChat({val,Swap}) {
@@ -108,6 +109,50 @@ function UserChat({val,Swap}) {
     }
   };
 
+  const handleUnassignCourse = (data) => {
+    console.log('data: ', data);
+    // if(!isValid){
+    //   setMessage({
+    //     enable: true,
+    //     msg: "Kindly Provide Valid data of Language and Environment",
+    //     state: false,
+    //   })
+    //   return
+    // }
+      let result = new Promise((resolve) => {
+        setIsPreview({
+          enable: true,
+          msg: data?.info?.title,
+          value: "UserScenarioUnassign",
+          resolve,
+        });
+      });
+      result.then((res) => {
+        if (res) {
+            axios
+            .delete(`/scenario-assignments/user/${getSessionStorage("userData")?.data?.id}/scenario/${data?.scenario_id}`)
+            // .delete(`/course-assignments/course/${data?.id}/user/${getSessionStorage("userData")?.data?.id}`)
+            .then((res) => {
+              setMessage({
+                enable: true,
+                msg: "Scenario Removed Successfully to this User",
+                state: true,
+              })
+              handlePrevious()
+            })
+            .catch((err) => {
+              setMessage({
+                enable: true,
+                msg: "Scenario Deletion Failed",
+                state: false,
+              })
+      
+            });    
+        }
+      });
+  } 
+
+
   return (
     <div className={styles.tab}>
         <UserDetailSideBar val={getSessionStorage("userData")} Swap={()=>Swap()} />
@@ -154,13 +199,17 @@ function UserChat({val,Swap}) {
             </div>
 
             <div className={styles.courseTileSub4}>
-              <div className={styles.subTitle}>
+              {/* <div className={styles.subTitle}>
                   Course Status</div>
               <div className={styles.subValue4}>
                 {selectedScenario?.status ||
                   selectedModule?.status ||
                   "In Progress"}
-              </div>
+              </div> */}
+              <button className={styles.unAssignCourse} onClick={()=>{handleUnassignCourse(getSessionStorage(header))}}>
+                <DeleteIcon />
+              </button>
+
             </div>
           </div>}
 

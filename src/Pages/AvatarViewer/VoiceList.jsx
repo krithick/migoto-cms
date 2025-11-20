@@ -3,7 +3,7 @@ import styles from '../AvatarViewer/VoiceList.module.css'
 import axios from '../../service.js'
 import { useLOIData } from '../../store'
 
-function VoiceList({setSpeak, isDisabled, gender}) {
+function VoiceList({setSpeak, setLang, isDisabled, gender}) {
     const [voiceData, setVoiceData] = useState([]);
     const { selectedData, setSelectedData } = useLOIData();
 
@@ -30,10 +30,10 @@ function VoiceList({setSpeak, isDisabled, gender}) {
             <div 
                 key={voice.id || index} 
                 className={`${styles.voiceItem}  ${isDisabled? styles.fff:""}`} 
-                onClick={()=>{!isDisabled && setSpeak(voice.voice_id)}}
+                onClick={()=>{!isDisabled && setSpeak(voice.voice_id),setLang(voice?.language_code)}}
             >
-                <div className={styles.voiceName}>{voice.name} - {voice.gender}</div>
-                <div className={styles.languageCode}>{voice.language_code}</div>
+                <div className={styles.voiceName}>{voice?.name} - {voice?.gender?.toUpperCase()}</div>
+                <div className={styles.languageCode}>{voice?.language_code?.toUpperCase()}</div>
             </div>
         ))}
     </div>

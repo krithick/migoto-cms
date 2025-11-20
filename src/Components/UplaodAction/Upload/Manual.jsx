@@ -9,20 +9,11 @@ import { TimeLineRoute } from "../../../RouteHelper/TimeLineRoute";
 import { setSessionStorage } from "../../../sessionHelper";
 
 
-export default function Manual() {
+export default function Manual({ formData, setFormData }) {
   const { message, setMessage } = useUserPopupStore();
   const navigate = useNavigate();
   let { selectedData, setSelectedData } = useLOIData();
   const [toogleInfo, setToogleInfo] = useState(false);
-  const [formData, setFormData] = useState({
-    username: "",
-    emp_id: "",
-    email: "",
-    password: "",
-    // assigneeEmpId: "",
-    is_active: true,
-    role: "user",
-  });
 
   const isFormValid =
   formData.username.trim() !== "" &&
@@ -32,7 +23,7 @@ export default function Manual() {
   formData.password.length > 7;
 
   const handleChange = (e) => {
-    const { name, value, type } = e.target;
+    const { name, value } = e.target;
 
     let newValue = value;
     
@@ -219,6 +210,22 @@ export default function Manual() {
         </div>
 
         <div className={styles.buttonGroup}>
+          <button
+            type="button"
+            className={styles.cancelButton}
+            onClick={() => {
+              setFormData({
+                username: "",
+                emp_id: "",
+                email: "",
+                password: "",
+                is_active: true,
+                role: "user",
+              });
+            }}
+          >
+            Clear
+          </button>
           <button
             type="button"
             className={styles.cancelButton}

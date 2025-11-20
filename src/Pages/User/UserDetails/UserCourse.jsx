@@ -12,7 +12,7 @@ import UserDetailSideBar from "../../../Components/UserDetailBox/UserDetailSideB
 import { Button } from "antd";
 import { getSessionStorage, setSessionStorage } from "../../../sessionHelper";
 import SelectedData from "../../../Components/SelectedDATA/SelectedData";
-import { useLOIData } from "../../../store";
+import { useLOIData, useUserPopupStore } from "../../../store";
 
 export default function UserCourse({val,Swap}) {
   let [currentPage, setCurrentPage] = useState("assignedCourse");
@@ -22,6 +22,7 @@ export default function UserCourse({val,Swap}) {
   const { id } = useParams();
   const [data, setData] = useState();
     const { selectedData, setSelectedData } = useLOIData();
+    const { message, setMessage } = useUserPopupStore();
 
   const fetchCourses = async () => {
     try {
@@ -45,6 +46,13 @@ export default function UserCourse({val,Swap}) {
         setSessionStorage("courseHeader",selectedData["courseHeader"])
         let path = window.location.pathname.replace("course","module")
         navigate(path)
+    }else{
+      setMessage({
+        enable: true,
+        msg: "Kindly Select a Course to Proceed ",
+        state: false,
+      });
+
     }
   }
   const handlePrevious = () => {

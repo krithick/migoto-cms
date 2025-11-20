@@ -1,4 +1,7 @@
-export let NavBar = {
+import { getSessionStorage } from "../sessionHelper";
+
+export const getNavBar = () => ({
+  // Dynamic evaluation of session storage
   "/migoto-cms/dashboard":["Dashboard"],
   
   "/migoto-cms/createUser":["Dashboard","Create User"],
@@ -34,18 +37,19 @@ export let NavBar = {
   "/migoto-cms/users/createUser": ["User Management","Create User"],
   "/migoto-cms/users/createUser/bulkList": ["User Management","Create User"],
   "/migoto-cms/users": ["User Management"],
-  "/migoto-cms/users/:id": ["User Management"],
-  "/migoto-cms/users/:id/course": ["User Management"],
-  "/migoto-cms/users/:id/course/editUser": ["User Management","Edit User"],
-  "/migoto-cms/users/:id/module/editUser": ["User Management","Edit User"],
-  "/migoto-cms/users/:id/scenario/editUser": ["User Management","Edit User"],
-  "/migoto-cms/users/:id/assignCourse/:id": ["User Management","Assign Course"],
-  "/migoto-cms/users/:id/course/assignCourse/:id": ["User Management","Assign Course"],
-  "/migoto-cms/users/:id/module/assignCourse/:id": ["User Management","Assign Course"],
-  "/migoto-cms/users/:id/scenario/assignCourse/:id": ["User Management","Assign Course"],
-  "/migoto-cms/users/:id/module": ["User Management"],
-  "/migoto-cms/users/:id/scenario": ["User Management"],
-  "/migoto-cms/users/:id/chats": ["User Management"],
+  "/migoto-cms/users/:id": ["User Management",(getSessionStorage("userData")?.data?.username||"User")],
+  "/migoto-cms/users/:id/course": ["User Management",(getSessionStorage("userData")?.data?.username||"User"),"Course"],
+  "/migoto-cms/users/:id/module": ["User Management",(getSessionStorage("userData")?.data?.username||"User"),"Module"],
+  "/migoto-cms/users/:id/scenario": ["User Management",(getSessionStorage("userData")?.data?.username||"User"),"Scenario"],
+  "/migoto-cms/users/:id/chats": ["User Management",(getSessionStorage("userData")?.data?.username||"User"),"Chats"],
+  "/migoto-cms/users/:id/course/editUser": ["User Management",(getSessionStorage("userData")?.data?.username||"User"),"Edit User"],
+  "/migoto-cms/users/:id/module/editUser": ["User Management",(getSessionStorage("userData")?.data?.username||"User"),"Edit User"],
+  "/migoto-cms/users/:id/scenario/editUser": ["User Management",(getSessionStorage("userData")?.data?.username||"User"),"Edit User"],
+  "/migoto-cms/users/:id/chats/editUser": ["User Management",(getSessionStorage("userData")?.data?.username||"User"),"Edit User"],
+  "/migoto-cms/users/:id/assignCourse/:id": ["User Management",(getSessionStorage("userData")?.data?.username||"User"),"Assign Course"],
+  "/migoto-cms/users/:id/course/assignCourse/:id": ["User Management",(getSessionStorage("userData")?.data?.username||"User"),"Course","Assign Course"],
+  "/migoto-cms/users/:id/module/assignCourse/:id": ["User Management",(getSessionStorage("userData")?.data?.username||"User"),"Module","Assign Course"],
+  "/migoto-cms/users/:id/scenario/assignCourse/:id": ["User Management",(getSessionStorage("userData")?.data?.username||"User"),"Scenario","Assign Course"],
   
   "/migoto-cms/courseManagement": ["Course Management"],
   "/migoto-cms/courseManagement/showModule": ["Course Management"],
@@ -79,4 +83,6 @@ export let NavBar = {
   "/migoto-cms/admins": ["Admin Management"],
   "/migoto-cms/admins/createAdmin": ["Admin Management","Create Admin"],
   "/migoto-cms/admins/:id/editAdmin": ["Admin Management","Edit Admin"],
-};
+});
+
+export const NavBar = getNavBar();

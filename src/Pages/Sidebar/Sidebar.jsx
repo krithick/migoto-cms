@@ -23,6 +23,7 @@ function Sidebar() {
   );
   // const menuContainerRef = useRef(null);
   // const activeIndicatorRef = useRef(null);
+  const { message, setMessage } = useUserPopupStore();
 
   useEffect(()=>{
     // console.log("activeTab",activeTab);
@@ -275,13 +276,25 @@ const handleNavigation=async(nav)=>{
 
           <div className={styles.menuBottom}>
             <span className={styles.sidebarNav}>
-              <p className={styles.navTitle}>
+              <p className={styles.navTitle} onClick={()=>{
+                              setMessage({
+                                enable: true,
+                                msg: "This Feature will be available soon !",
+                                state: false,
+                              })                
+              }}>
                 <AccountDashIcon />
                 Account Preference
               </p>
             </span>
             <span className={styles.sidebarNav}>
-              <p className={styles.navTitle}>
+              <p className={styles.navTitle} onClick={()=>{
+                              setMessage({
+                                enable: true,
+                                msg: "This Feature will be available soon !",
+                                state: false,
+                              })                
+              }}>
                 <HelpDashIcon />
                 Help
               </p>

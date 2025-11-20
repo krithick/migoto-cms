@@ -4,12 +4,13 @@ import EditIcon from "../../../Icons/EditIcon";
 import BackIcon from "../../../Icons/BackIcon";
 import styles from "./UserCourse.module.css";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { useLOIData, useReportStore } from "../../../store";
+import { useLOIData, usePreviewStore, useReportStore, useUserPopupStore } from "../../../store";
 import axios from "../../../service";
 import Card from "../../../Components/Card/Card";
 import UserDetailSideBar from "../../../Components/UserDetailBox/UserDetailSideBar";
 import { getSessionStorage, setSessionStorage } from "../../../sessionHelper";
 import { Button } from "antd";
+import DeleteIcon from "../../../Icons/DeleteIcon";
 
 
 function UserModule({val,Swap}) {
@@ -21,6 +22,8 @@ function UserModule({val,Swap}) {
   let [currentPage, setCurrentPage] = useState("moduleLists");
   const [title, setTitle] = useState("Title")
   const [header, setHeader] = useState("courseHeader")
+  const { message, setMessage } = useUserPopupStore();
+  const { isPreview, setIsPreview } = usePreviewStore();
 
 
   let navigate = useNavigate();
@@ -69,12 +72,61 @@ function UserModule({val,Swap}) {
 
     let path = window.location.pathname.replace("module","scenario")
     navigate(path)
+    }else{
+      setMessage({
+        enable: true,
+        msg: "Kindly Select a Module to Proceed ",
+        state: false,
+      });
     }
   }
   const handlePrevious = () => {
     let path = window.location.pathname.replace("module","course")
     navigate(path)
   }
+  console.log('getSessionStorage("userData": ', getSessionStorage("userData"))
+
+  const handleUnassignCourse = (data) => {
+    // if(!isValid){
+    //   setMessage({
+    //     enable: true,
+    //     msg: "Kindly Provide Valid data of Language and Environment",
+    //     state: false,
+    //   })
+    //   return
+    // }
+      let result = new Promise((resolve) => {
+        setIsPreview({
+          enable: true,
+          msg: data?.title,
+          value: "UserCourseUnassign",
+          resolve,
+        });
+      });
+      result.then((res) => {
+        if (res) {
+            axios
+            .delete(`/course-assignments/course/${data?.id}/user/${getSessionStorage("userData")?.data?.id}`)
+            .then((res) => {
+              setMessage({
+                enable: true,
+                msg: "Course Removed Successfully to this User",
+                state: true,
+              })
+              handlePrevious()
+            })
+            .catch((err) => {
+              setMessage({
+                enable: true,
+                msg: "Course Deletion Failed",
+                state: false,
+              })
+      
+            });    
+        }
+      });
+  } 
+
 
   
   return (
@@ -118,13 +170,17 @@ function UserModule({val,Swap}) {
             </div>
 
             <div className={styles.courseTileSub4}>
-              <div className={styles.subTitle}>
+              {/* <div className={styles.subTitle}>
                   Course Status</div>
               <div className={styles.subValue4}>
                 {selectedScenario?.status ||
                   selectedModule?.status ||
                   "In Progress"}
-              </div>
+              </div> */}
+                <button className={styles.unAssignCourse} onClick={()=>{handleUnassignCourse(getSessionStorage(header))}}>
+                <DeleteIcon />
+                 </button>
+
             </div>
           </div>}
 

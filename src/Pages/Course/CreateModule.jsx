@@ -172,8 +172,6 @@ function CreateModule({
   };
 
   const handleImageRequest = () => {
-    console.log('import.meta.env.VITE_UPLOAD_URL: ', import.meta.env.VITE_UPLOAD_URL);
-    // setCurrentPage("Create Scanario");
     if (typeof selectedFile === "object") {
       const token = localStorage.getItem("migoto-cms-token");
 

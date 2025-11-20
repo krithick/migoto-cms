@@ -1,4 +1,3 @@
-import { log2 } from "three/tsl";
 
 // ✅ Safe setter for sessionStorage
   export function setSessionStorage(key, value) {

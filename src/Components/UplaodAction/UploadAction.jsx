@@ -8,6 +8,14 @@ import Manual from './Upload/Manual'
 
 export default function UplaodAction() {
   const [file, setFile] = useState("Manual Upload")
+  const [formData, setFormData] = useState({
+    username: "",
+    emp_id: "",
+    email: "",
+    password: "",
+    is_active: true,
+    role: "user",
+  })
 
   return (
     <>
@@ -24,7 +32,7 @@ export default function UplaodAction() {
         </div>
       </div>
       <div className={styles.actionBoxBody}>
-        {file == "Bulk Upload" ? <Bulk /> : <Manual />}
+        {file == "Bulk Upload" ? <Bulk /> : <Manual formData={formData} setFormData={setFormData} />}
       </div>
     </div>
     </>

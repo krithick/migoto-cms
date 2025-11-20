@@ -11,14 +11,16 @@ export default function EditUser() {
   const navigate = useNavigate();
   let { selectedData, setSelectedData } = useLOIData();
   let val = getSessionStorage("userData")?.data
+
   const [formData, setFormData] = useState({
     username: getSessionStorage("userData")?.data?.username??"",
+    password: "",
     emp_id: getSessionStorage("userData")?.data?.emp_id??"",
     email: getSessionStorage("userData")?.data?.email??"",
     is_active: getSessionStorage("userData")?.data?.is_active??true,
     role: "user",
     account_type: getSessionStorage("userData")?.data?.account_type??"regular",
-    demo_expires_at: getSessionStorage("userData")?.data?.demo_expires_at??new Date("01-01-2027"),
+    demo_expires_at: getSessionStorage("userData")?.data?.demo_expires_at??new Date("01-05-2027"),
   });
 
   const isFormValid =
@@ -28,6 +30,8 @@ export default function EditUser() {
 
   const handleChange = (e) => {
     const { name, value, type } = e.target;
+    console.log('value: ', value);
+    console.log('name: ', name);
 
     let newValue = value;
     
@@ -44,7 +48,7 @@ export default function EditUser() {
   const handleSubmit = (e, type) => {
     e.preventDefault();
     axios
-      .put(`/auth/users/${val.id}`, formData)
+      .put(`/auth/users/by-id/${val.id}`, formData)
       .then((res) => {
         setSelectedData("userRefresh", Date.now());
         setSessionStorage("userData", res);
@@ -63,6 +67,28 @@ export default function EditUser() {
         })
       })
   };
+  // const handleSubmit = (e, type) => {
+  //   e.preventDefault();
+  //   axios
+  //     .put(`/auth/users/${val.id}`, formData)
+  //     .then((res) => {
+  //       setSelectedData("userRefresh", Date.now());
+  //       setSessionStorage("userData", res);
+  //       setMessage({
+  //         enable: true,
+  //         msg: "User Edited Successfully",
+  //         state: true,
+  //       })
+  //       navigate(-1);
+  //     })
+  //     .catch((err) => {
+  //       setMessage({
+  //         enable: true,
+  //         msg: "Editting User Failed",
+  //         state: false,
+  //       })
+  //     })
+  // };
 
   return (
     <div className={styles.manualUploadContainer}>
@@ -119,24 +145,23 @@ export default function EditUser() {
           />
         </div>
 
-        {/* <div className={styles.box}>
+        <div className={styles.box}>
           <label htmlFor="password">
             Password<span style={{ color: "red" }}>*</span>
           </label>
           <input
-            className={(formData.password.length<8&&formData.password.length>0)
+            className={(formData.password?.length<8&&formData.password?.length>0)
               ?styles.deniedInput
-              :(formData.password.length>7)
+              :(formData.password?.length>7)
               ?styles.accessInput:""}
             type="text"
             id="password"
             name="password"
-            readOnly
             value={formData.password}
             onChange={handleChange}
-            placeholder="Enter Password"
+            placeholder="Change Password"
           />
-        </div> */}
+        </div>
         <div className={styles.gridRow}>
           {/* <div className={styles.box}>
             <label htmlFor="assigneeEmpId">
