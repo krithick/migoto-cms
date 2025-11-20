@@ -11,9 +11,13 @@
   /* overflow: hidden; */
 }
 
+.scenarioBtn{
+  display: flex;
+}
 .fRow {
   display: flex;
-  padding: 0 2vw;
+  /* padding: 0 2vw; */
+  width: 93%;
 }
 .header {
   width: 100%;
@@ -259,6 +263,15 @@
   border-radius: 32px;
   border: none;
   outline: none;
+  width: 200px;
+}
+.tempBtn{
+  background-color: var(--brand);
+  color: white;
+  border-radius: 15px;
+  outline: none;
+  border: 1px solid var(--brand);
+
 }
 
 /* new */

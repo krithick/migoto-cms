@@ -31,6 +31,7 @@ function SceneCanvas({ setActiveState }) {
   const { isPreview, setIsPreview } = usePreviewStore();
   const [modelVisibility, setModelVisibility] = useState({});
   let [payloadName, setPayloadName] = useState(getSessionStorage("personaName"));
+  let [avatarGender, setAvatarGender] = useState(getSessionStorage("personaGender"));
   let [gender, setGender] = useState("female");
   let [imageThumbnail, setImageThumbnail] = useState();
   let initialVisibility = {};
@@ -250,7 +251,10 @@ function SceneCanvas({ setActiveState }) {
         }
         
         const overallData = groupModelConfigsByName(combinedData);
-        setGroupedModelConfigs(transformModels(overallData));
+        const filteredData = avatarGender === "female" 
+        ? overallData.filter(item => person.includes(item.name))
+        : overallData.filter(item => !person.includes(item.name));
+        setGroupedModelConfigs(transformModels(filteredData));
       } catch (err) {
         console.error("Failed to fetch models:", err);
         setGroupedModelConfigs([]);
@@ -266,6 +270,7 @@ function SceneCanvas({ setActiveState }) {
   }, []); // api to fetch the avatars 
 
   useEffect(() => {
+    console.log('groupedModelConfigs: ', groupedModelConfigs);
     if (groupedModelConfigs && groupedModelConfigs.length > 0) {
       setModelConfigs(groupedModelConfigs[0]?.models || []);
     } else {

@@ -65,6 +65,13 @@ function ScenarioPage() {
       navigate(path);
       setCurrentPage("showAvatarInteraction");
       setSessionStorage("showScenario", selectedData["showScenario"]);
+    }else{
+      setMessage({
+        enable: true,
+        msg: "Kindly Select a Scenario to Proceed ",
+        state: false,
+      });
+
     }
   };
 

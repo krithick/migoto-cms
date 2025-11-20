@@ -262,6 +262,7 @@ function PersonaCreation({setBack, setEditPage}) {
         setSelectedData("personaName", res.data.name);
         setSelectedData("PersonaSelection", res.data.id);
         setSessionStorage("personaName", persona.name);
+        setSessionStorage("personaGender",persona?.gender)
         setSessionStorage("PersonaSelection", persona.id);
         UpdateTimeline(
           5,

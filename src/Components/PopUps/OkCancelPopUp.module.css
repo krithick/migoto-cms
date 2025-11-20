@@ -150,3 +150,8 @@
         text-align: left;
     }
 }
+
+.greenIndi{
+    color: green !important;
+    font-weight: 500;
+  }

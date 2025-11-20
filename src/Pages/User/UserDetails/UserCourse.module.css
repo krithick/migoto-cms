@@ -434,3 +434,17 @@
 .textCenter {
   text-align: center;
 }
+
+.unAssignCourse{
+  background-color: #ff2d536b;
+  border: solid 1px #ff2d55;
+  color: white;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  outline: none;
+  /* padding: 1vh 1.2vw; */
+}

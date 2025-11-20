@@ -5,15 +5,13 @@ import { useLOIData } from "../../store";
 import AiScenarioBuilder from "./AIScenario/AiScenarioBuilder";
 import { getSessionStorage, setSessionStorage } from "../../sessionHelper";
 import ScenarioConfirmation from "./ScenarioConfirmation";
+import DownloadIcon from "../../Icons/DownloadIcon";
 
-function CreateScenario({
-  moveTo,
-}) {
+function CreateScenario({ moveTo }) {
   const [uploadPage, setUploadPage] = useState("Image Upload");
   const [backTo, setBackTo] = useState("Image Upload");
   let { selectedData, setSelectedData } = useLOIData();
   let flow = localStorage.getItem("flow");
-
 
   // useEffect(() => {
   //   if (
@@ -35,22 +33,39 @@ function CreateScenario({
           <div className={styles.header}>
             <div className={styles.page}>
               <div className={styles.currentPage}>Create Scenario</div>
-              {uploadPage == "Image Upload" && (
+              <div className={styles.scenarioBtn}>
                 <button
+                className={styles.tempBtn}
                   onClick={() => {
-                    setUploadPage("CreateAIScanario"),
-                    setBackTo("CreateAIScanario"),
-                    setSelectedData("supportDocs", null),
-                    setSelectedData("avatarSelection", null);
-                    setSelectedData("ListofAvatars", null);
-                    setSessionStorage("personaLimit",0)
+                    const link = document.createElement("a");
+                    link.href = `${
+                      import.meta.env.VITE_APP_URL
+                    }Scenario_template.docx`; // path from public folder
+                    link.download = "scenario_template.docx";
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
                   }}
-                  className={styles.gnrBtn}
                 >
-                  {" "}
-                  Create scenario with AI
+                  Download Base Template <DownloadIcon />
                 </button>
-              )}
+                {uploadPage == "Image Upload" && (
+                  <button
+                    onClick={() => {
+                      setUploadPage("CreateAIScanario"),
+                        setBackTo("CreateAIScanario"),
+                        setSelectedData("supportDocs", null),
+                        setSelectedData("avatarSelection", null);
+                      setSelectedData("ListofAvatars", null);
+                      setSessionStorage("personaLimit", 0);
+                    }}
+                    className={styles.gnrBtn}
+                  >
+                    {" "}
+                    Create scenario with AI
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         )}

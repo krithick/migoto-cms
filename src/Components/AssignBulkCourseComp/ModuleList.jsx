@@ -21,6 +21,7 @@ function ModuleList({
   let [moduleData, setModuleData] = useState([]);
   let [scenarioData, setScenarioData] = useState([]);
   let [showModule, setShowModule] = useState();
+  console.log('showModule: ', showModule);
   let [selectedModules, setSelectedModules] = useState(new Set());
   let [selectedScenarios, setSelectedScenarios] = useState(new Set());
   let [activeKeys, setActiveKeys] = useState([]);
@@ -147,6 +148,9 @@ function ModuleList({
                 onChange={(e) => {
                   e.stopPropagation();
                   const isSelected = e.target.checked;
+                  if(isSelected){
+                    setShowModule(item.id);
+                  }
                   setSelectedModules((prev) => {
                     const newSet = new Set(prev);
                     if (isSelected) {

@@ -31,7 +31,7 @@ export default function Bulk() {
         <button
           onClick={() => {
             const link = document.createElement("a");
-            link.href = "/user_template.csv"; // path from public folder
+            link.href = `${import.meta.env.VITE_APP_URL}user_template.csv`; // path from public folder
             link.download = "user_template.csv";
             document.body.appendChild(link);
             link.click();

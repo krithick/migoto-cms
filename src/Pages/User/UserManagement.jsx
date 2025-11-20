@@ -209,7 +209,7 @@ function UserManagement() {
                 </tr>
               </thead>
               <tbody>
-                {data.length > 0 &&
+                {data.length > 0 ? (
                   data.map((_, index) => (
                     <tr key={`row-${index + 1}`}>
                       <td className={styles.center}>{index + 1}</td>
@@ -259,7 +259,14 @@ function UserManagement() {
                         </div>
                       </td>
                     </tr>
-                  ))}
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="8" style={{textAlign: 'center', padding: '20px'}}>
+                      User not Exist
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </div>

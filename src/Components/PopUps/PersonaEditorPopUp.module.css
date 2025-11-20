@@ -209,3 +209,9 @@
     border-color: #1976d2;
   }
   
+  .persona.selected label {
+    color: green;
+  }
+  
+
+  

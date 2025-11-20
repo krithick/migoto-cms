@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "../CourseManagement/CourseManagement.module.css";
 import CourseCard from "../../Components/CourseComponent/CourseCard";
 import axios from "../../service";
-import { useLOIData } from "../../store";
+import { useLOIData, useUserPopupStore } from "../../store";
 import { Button } from "antd";
 import { useNavigate } from "react-router-dom";
 import CreateCourse from "../Course/CreateCourse";
@@ -17,7 +17,8 @@ function CoursePage() {
   const { selectedData, setSelectedData } = useLOIData();
   const [size, setSize] = useState("default");
   const [search, setSearch] = useState("");
-    
+  const { message, setMessage } = useUserPopupStore();
+
   const fetchListOfCourse = () => {
     if (currentPage == "showCourse") {
       axios
@@ -41,6 +42,12 @@ function CoursePage() {
       setSessionStorage("showCourse",selectedData["showCourse"])
       navigate("showModule")
       setCurrentPage("showModule");
+    }else{
+      setMessage({
+        enable: true,
+        msg: "Kindly Select a Course to Proceed ",
+        state: false,
+      });
     }
   };
 

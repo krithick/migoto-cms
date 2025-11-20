@@ -161,9 +161,9 @@ instance.interceptors.response.use(
     if (error.response?.status === 401) {
       // Only redirect if not on login page
       const currentPath = window.location.pathname;
-      if (currentPath !== '/migoto-cms' && !currentPath.includes('login')) {
+      if (currentPath !== '/migoto-cms/' && currentPath !== '/migoto-cms' ) {
         clearMigotoStorage();
-        window.location.href = "/migoto-cms";
+        window.location.href = import.meta.env.VITE_APP_URL;
       }
     }
 

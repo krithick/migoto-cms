@@ -67,6 +67,12 @@ function ModulePage() {
       navigate(path);
       setCurrentPage("showScenario");
       setSessionStorage("showModule", selectedData["showModule"]);
+    }else{
+      setMessage({
+        enable: true,
+        msg: "Kindly Select a Module to Proceed ",
+        state: false,
+      });
     }
   };
 

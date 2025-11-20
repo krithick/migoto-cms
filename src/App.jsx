@@ -30,7 +30,8 @@ function App() {
         {isPreview.enable && isPreview.value == "userListPopUp" && (<UserSelect />)} {/* this popUp is used for User selection before asigning course to user for dasboard create Course button */}
         {isPreview.enable && isPreview.value == "UserReport" && <ReportCard />} {/* this popUp is used for User report of certain scenario in userManagement*/}
         {isPreview.enable &&isPreview.msg &&isPreview.value == "AvatarPopUp" && <PersonaEditorPopUp />} {/* this popUp is used for persona Editor in the course Management */}
-        <ConfirmationPopUp /> {/* this popUp is used for conformation of delete, assign (User,Avatar) */}
+        {(isPreview?.enable  && ["bulkPopUpUser", "deletePopUpUser", "unAssignPopUp", "deleteAvatar", "UserCourseUnassign","UserScenarioUnassign","UserModuleUnassign"]?.includes(isPreview?.value)) &&
+        <ConfirmationPopUp />} {/* this popUp is used for conformation of delete, assign (User,Avatar) */}
         <ALVEPopUp /> {/* this popUp is used for scenario data to edit such as (lang,env,voice) in courseManagement */}
         <OkCancelPopUp /> {/* this popUp is used for Confirmation while Navigating back */}
         {/* <AILoader /> */}

@@ -19,6 +19,9 @@ function AvatarViewer({ backFunction }) {
   const [gender, setGender] = useState();
   const [animation, setAnimation] = useState();
   const [speak, setSpeak] = useState();
+  console.log('speak: ', speak);
+  const [lang, setLang] = useState();
+  console.log('lang: ', lang);
   const [audioReload, setAudioReload] = useState(false);
   const [modelLoaded, setModelLoaded] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -36,12 +39,24 @@ function AvatarViewer({ backFunction }) {
     });
   }, []);
 
+  const getGreetingText = (language, name) => {
+    const greetings = {
+      "en-US": `Hi there! I am ${name}, How can I help you?`,
+      "en-IN": `Hi there! I am ${name}, How can I help you?`,
+      "hi-IN": `नमस्ते! मैं ${name} हूँ, मैं आपकी कैसे मदद कर सकता हूँ?`,
+      "ta-IN": `வணக்கம்! நான் ${name}, உங்களுக்கு எப்படி உதவ முடியும்?`
+    };
+    return greetings[language] || greetings["en-US"];
+  };
+  
+
   const handleTTS = async () => {
-    if(speak && name && !isPlaying && !isLoading){
+    if(lang && speak && name && !isPlaying && !isLoading){
         setIsLoading(true);
         setIsPlaying(true);
         
-        let text = `Hi there! i am ${name} , How can i help you?`
+        let text = getGreetingText(lang, name);
+
         const formData = new FormData();
         formData.append("message", text);
         formData.append("voice_id", speak);
@@ -50,9 +65,9 @@ function AvatarViewer({ backFunction }) {
               headers: {
                   "Content-Type": "multipart/form-data",
                   Authorization: localStorage.getItem("migoto-cms-token"),
-                },          
+                },
               responseType: "arraybuffer"});
-    
+
           // Clean up previous audio URL
           if (audioRef.current.src) {
             URL.revokeObjectURL(audioRef.current.src);
@@ -76,6 +91,7 @@ function AvatarViewer({ backFunction }) {
             setAudioReload(false);
             setIsPlaying(false);
             setIsLoading(false);
+            setLang(null)
           };
         } catch (err) {
           console.error("TTS error:", err);
@@ -89,15 +105,19 @@ function AvatarViewer({ backFunction }) {
     if(modelLoaded && speak && name){
       handleTTS();
     }
-  },[modelLoaded, speak, name])
+  },[modelLoaded, speak, name, lang])
 
   // Remove the second useEffect to prevent duplicate calls
 
-
+  const stopSpeaking = () => {
+    audioRef.current.pause()
+    backFunction();
+  };
+  
   return (
     <>
       <div className={styles.modelContainer}>
-        <VoiceList setSpeak={(item)=>setSpeak(item)} isDisabled={isPlaying} gender={gender} />
+        <VoiceList setSpeak={(item)=>setSpeak(item)} setLang={(item)=>setLang(item)} isDisabled={isPlaying} gender={gender} />
             
         <div className={styles.sceneContainer}>
           <Canvas
@@ -122,7 +142,8 @@ function AvatarViewer({ backFunction }) {
           <Button
             type="primary"
             onClick={() => {
-                backFunction();
+                stopSpeaking();
+                // backFunction();
             }}
           >
             Skip
