@@ -179,7 +179,7 @@ function LVESelection({}) {
       try {
         const res = await axios.post("/scenario/v2/generate-final-prompts", learnpayload)
 
-        return res?.data?.learn_prompt;
+        return res?.data;
 
       } catch (err) {
         setMessage({
@@ -202,7 +202,15 @@ function LVESelection({}) {
       }
 
       let learn_prompt = await getLearnPrompt()
+
+      setIsPreview({
+        enable: true,
+        msg: {"url":learn_prompt?.sse_endpoint,"loader":"none"},
+        value: "scenarioToast",
+      });
+
      
+      // return
       // if(learn_prompt){
       //   setMessage({
       //     enable: true,
@@ -234,7 +242,7 @@ function LVESelection({}) {
             ...base,
             bot_role: "trainer",
             bot_role_alt: "employee",
-            system_prompt: learn_prompt,
+            system_prompt: learn_prompt?.learn_prompt,
             mode: "learn_mode",
 
           };

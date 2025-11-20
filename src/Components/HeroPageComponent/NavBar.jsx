@@ -5,7 +5,7 @@ import { NavBarMatchRoute } from '../../RouteHelper/NavBarMatchRoute.js';
 import {NavBar} from '../../RouteHelper/NavBar.js'
 function NavBarComponent() {
 
-    const pathLocation1 = NavBarMatchRoute(window.location.pathname);
+  const pathLocation1 = NavBarMatchRoute(window.location.pathname);
   const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem("user")));
 
   return (

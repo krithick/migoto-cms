@@ -1,40 +1,26 @@
-import { useEffect, useState, Suspense } from "react";
+import {Suspense } from "react";
 import React from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
 import Background from "./Pages/Background/Background";
 import Sidebar from "./Pages/Sidebar/Sidebar";
 import HeroPage from "./Pages/HeroPage/HeroPage";
 import { usePreviewStore, useUserPopupStore } from "./store";
-import AvatarPreview from "./Components/AvatarPreview/AvatarPreview";
 import Message from "./Utils/Message/Message";
-import Loader from "./Components/Loader/Loader";
 import MigotoLoader from "./Components/Loader/MigotoLoader";
-import AILoader from "./Components/AILoader/AILoader";
-import { useNavigate } from "react-router-dom";
 import PersonaEditorPopUp from "./Components/PopUps/PersonaEditorPopUp";
 import NotFound from "./Utils/NotFound/NotFound";
 import UserSelect from "./Pages/User/UserSelect/UserSelect";
 import ReportCard from "./Components/Report/ReportCard";
-import PageLoader from "./Components/Loader/PageLoader";
+import ScenarioToast from "./Components/ScenarioToast/ScenarioToast";
 
-const PersonaPromptPopUp = React.lazy(() =>
-  import("./Components/PopUps/PersonaPromptPopUp")
-);
-const ConfirmationPopUp = React.lazy(() =>
-  import("./Components/PopUps/ConfirmationPopUp")
-);
-const ALVEPopUp = React.lazy(() =>
-  import("./Components/AssignALVEPopup/ALVEPopUp")
-);
-const OkCancelPopUp = React.lazy(() =>
-  import("./Components/PopUps/OkCancelPopUp")
-);
+const PersonaPromptPopUp = React.lazy(() =>import("./Components/PopUps/PersonaPromptPopUp"));
+const ConfirmationPopUp = React.lazy(() =>import("./Components/PopUps/ConfirmationPopUp"));
+const ALVEPopUp = React.lazy(() =>import("./Components/AssignALVEPopup/ALVEPopUp"));
+const OkCancelPopUp = React.lazy(() => import("./Components/PopUps/OkCancelPopUp"));
+
 function App() {
   const { isPreview, setIsPreview } = usePreviewStore();
   const { message, setMessage } = useUserPopupStore();
-  let navigate = useNavigate();
 
   return (
     <>
@@ -61,6 +47,7 @@ function App() {
             </div>
       } */}
         {message.enable && <Message />} {/* this popUp is used for showing response such as error msg or suceess msg */}
+        <ScenarioToast /> {/* this toast is used for showing API progress during scenario generation */}
       </Suspense>
     </>
   );

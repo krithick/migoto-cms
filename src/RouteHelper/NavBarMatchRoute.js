@@ -1,7 +1,8 @@
-import { NavBar } from "./NavBar";
+import { getNavBar } from "./NavBar";
 
 export const NavBarMatchRoute = (path) => {
-
+    const NavBar = getNavBar(); // Get fresh data on each call
+    
     // Sort routes by length (longest first) to match more specific routes first
     const sortedRoutes = Object.keys(NavBar).sort((a, b) => b.length - a.length);
 

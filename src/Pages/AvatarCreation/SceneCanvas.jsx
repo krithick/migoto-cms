@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef, Suspense } from "react";
-import { Grid, Html, Loader, useGLTF } from "@react-three/drei";
+import { Html, Loader } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
-
 import styles from "../AvatarCreation/AvatarCoustomization/AvtCustomiser.module.css";
 
 //R3F components + svg components
@@ -12,10 +11,9 @@ import Lights from "../AvatarCreation/AvatarCoustomization/Lights";
 import CameraController from "../AvatarCreation/AvatarCoustomization/CameraController";
 import axios from "../../service";
 import { Button, Input, Select } from "antd";
-import { useLOIData, useUserPopupStore } from "../../store";
+import { useLOIData, usePreviewStore, useUserPopupStore } from "../../store";
 import { useNavigate } from "react-router-dom";
 import IconSelection from "./AvatarCoustomization/IconSelection";
-import { UpdateTimeline } from "../../Components/Timeline/UpdateTImeLine";
 import { clearAllData, getSessionStorage, setSessionStorage } from "../../sessionHelper";
 import { groupModelConfigsByName, transformModels } from "./AvatarCoustomization/avaterCreationHelper";
 
@@ -29,10 +27,8 @@ function SceneCanvas({ setActiveState }) {
   let [modelConfigs, setModelConfigs] = useState();
   let [isBeard, setIsBeard] = useState(false);
   let [Armature, setArmature] = useState();
-  console.log('Armature: ', Armature);
-  // let [path, setPath] = useState("/new mod/Joh_Armature.glb");
   const { message, setMessage } = useUserPopupStore();
-
+  const { isPreview, setIsPreview } = usePreviewStore();
   const [modelVisibility, setModelVisibility] = useState({});
   let [payloadName, setPayloadName] = useState(getSessionStorage("personaName"));
   let [gender, setGender] = useState("female");
@@ -49,18 +45,6 @@ function SceneCanvas({ setActiveState }) {
   const [animationClips, setAnimationClips] = useState(null);
   const [play, setPlay] = useState(true);
   let path = window.location.pathname;
-
-  // const handleBack = () => {
-  //   if (flow != "Create Avatar flow") {
-  //     const cleanedPath = path?.replace("/createAvatar", "/avatarSelection");
-  //     navigate(cleanedPath, { state: { myData: "createAvatar" } });
-  //   } else {
-  //     const cleanedPath = path?.replace("createAvatar", "avatarSelection");
-  //     navigate(cleanedPath);
-  //     // navigate("assignCourse");
-  //   }
-  // };
-
 
   let canvasRef = useRef();
 
@@ -109,17 +93,8 @@ function SceneCanvas({ setActiveState }) {
 
     file = await dataURLtoFile(canvasRef.current.toDataURL("image/png"), "test.png");
     UploadImage(file);
-  };
+  }; // to take image of avatar
 
-  // useEffect(()=>{
-  //   const mode1 = selectedData["modifyAvaInterIn"];
-  //   const idList = [
-  //     {"LearnModeAvatarInteractionId":"LearnModeAvatar",
-  //     "TryModeAvatarInteractionId":"TryModeAvatar",
-  //     "AssessModeAvatarInteractionId":"AssessModeAvatar"},
-  //   ];
-  //   console.log('idList: ', selectedData[`${idList[0][mode1]}`]);
-  // },[])
 
   const PostAvatar = async (img) => {
     let payload = {
@@ -147,85 +122,113 @@ function SceneCanvas({ setActiveState }) {
       }
       setSessionStorage("AvatarPreview", res.data.id);
 
-      // Call generate-persona-prompts API before posting avatar interactions
+      if(flow == "CourseManagement & editScenario flow"){
+              // Call generate-persona-prompts API before posting avatar interactions
       try {
-        await axios.post("/scenario/v2/generate-persona-prompts", {
+        let prompt = await axios.post("/scenario/v2/generate-persona-prompts", {
           template_id: getSessionStorage("template_id") || "default-template",
           persona_ids: [getSessionStorage("PersonaSelection")],
           mode: "assess_mode"
         });
+
+        handleGeneratePrompt(prompt,res)
       } catch (err) {
         console.log("Generate persona prompts failed:", err);
-      }
-
-        if (
-          (flow == "CourseManagement & editScenario flow" && getSessionStorage("AvatarAssignedTo") == "all") || //this is for all interaction and edit scenario flow
-          flow == "Create Avatar flow"
-        ) {
-          const idList = [
-            { key: "LearnModeAvatarInteractionId", setKey: "LearnModeAvatar" },
-            { key: "TryModeAvatarInteractionId", setKey: "TryModeAvatar" },
-            { key: "AssessModeAvatarInteractionId", setKey: "AssessModeAvatar" },
-          ];
-          
-          idList.map((v, i) => {
-            let existing = getSessionStorage(v.setKey);
-            axios
-              .put(`/avatar-interactions/${getSessionStorage(v.key)}`, {
-                avatars: [...existing, res.data.id],
-              })
-              .then((res) => {
-                setSelectedData("checkAI", Date.now());
-              })
-              .catch((err) => {
-                console.log(err);
-                setMessage({
-                  enable: true,
-                  msg: "Something went wrong",
-                  state: false,
-                });
-                return;
-              });
-          });
-        } else if (flow == "CourseManagement & editScenario flow" && getSessionStorage("AvatarAssignedTo") == "single") {
-          let mode = getSessionStorage("modifyAvaInterIn");
-          const idList = [
-            {
-              LearnModeAvatarInteractionId: "LearnModeAvatar",
-              TryModeAvatarInteractionId: "TryModeAvatar",
-              AssessModeAvatarInteractionId: "AssessModeAvatar",
-            },
-          ];
-          let existing = getSessionStorage(`${idList[0][mode]}`);
-
-          axios
-            .put(`/avatar-interactions/${getSessionStorage(`${mode}`)}`, {
-              avatars: [...existing, res.data.id],
-            })
-            .then((res) => {
-              setSelectedData("checkAI", Date.now());
-            })
-            .catch((err) => {
-              console.log(err);
-              setMessage({
-                enable: true,
-                msg: "Something went wrong",
-                state: false,
-              });
-              return;
-            });
-        }
-
+      }}
       setActiveState();
+
     } catch (err) {
       console.log("err: ", err);
       setMessage({
         enable: true,
-        msg: "Something went wrong",
+        msg: "Avatar Creation Failed",
         state: false,
       });
     }
   };
+
+  const handleGeneratePrompt = (prompt,response) => {
+    console.log('prompt: ', prompt);
+    try{
+      let result = new Promise((resolve) => {
+        setIsPreview({
+          enable: true,
+          msg: {"url": prompt?.data?.sse_endpoint, "loader": "full"},
+          value: "scenarioToast",
+          resolve,
+        });
+      });
+      
+      result.then((res) => {
+        console.log('res: ', res);
+        if(res){
+          handleAssignAvatarToCourse(response)
+        }
+      });
+      
+    }catch(err){
+      console.log(err);
+    }
+  }
+
+  const handleAssignAvatarToCourse = (res) => {
+    if (
+      (flow == "CourseManagement & editScenario flow" && getSessionStorage("AvatarAssignedTo") == "all") || //this is for all interaction and edit scenario flow
+      flow == "Create Avatar flow") {
+      const idList = [
+        { key: "LearnModeAvatarInteractionId", setKey: "LearnModeAvatar" },
+        { key: "TryModeAvatarInteractionId", setKey: "TryModeAvatar" },
+        { key: "AssessModeAvatarInteractionId", setKey: "AssessModeAvatar" },
+      ];
+      
+      idList.map((v, i) => {
+        let existing = getSessionStorage(v.setKey);
+        axios
+          .put(`/avatar-interactions/${getSessionStorage(v.key)}`, {
+            avatars: [...existing, res.data.id],
+          })
+          .then((res) => {
+            setSelectedData("checkAI", Date.now());
+          })
+          .catch((err) => {
+            console.log(err);
+            setMessage({
+              enable: true,
+              msg: "Something went wrong",
+              state: false,
+            });
+            return;
+          });
+      });
+    } else if (flow == "CourseManagement & editScenario flow" && getSessionStorage("AvatarAssignedTo") == "single") {
+      let mode = getSessionStorage("modifyAvaInterIn");
+      const idList = [
+        {
+          LearnModeAvatarInteractionId: "LearnModeAvatar",
+          TryModeAvatarInteractionId: "TryModeAvatar",
+          AssessModeAvatarInteractionId: "AssessModeAvatar",
+        },
+      ];
+      let existing = getSessionStorage(`${idList[0][mode]}`);
+
+      axios
+        .put(`/avatar-interactions/${getSessionStorage(`${mode}`)}`, {
+          avatars: [...existing, res.data.id],
+        })
+        .then((res) => {
+          setSelectedData("checkAI", Date.now());
+        })
+        .catch((err) => {
+          console.log(err);
+          setMessage({
+            enable: true,
+            msg: "Something went wrong",
+            state: false,
+          });
+          return;
+        });
+    }
+  }
  
   useEffect(() => {
     const fetchModels = async () => {
@@ -260,7 +263,7 @@ function SceneCanvas({ setActiveState }) {
     };
     
     fetchModels();
-  }, []);
+  }, []); // api to fetch the avatars 
 
   useEffect(() => {
     if (groupedModelConfigs && groupedModelConfigs.length > 0) {
@@ -363,7 +366,6 @@ function SceneCanvas({ setActiveState }) {
   }, [modelConfigs]);
 
   const toggleModel = (id) => {
-    console.log('id: ', id);
     const clickedModel = ogConfig.find((m) => m.id === id);
     const updated = { ...modelVisibility };
 

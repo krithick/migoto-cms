@@ -88,7 +88,6 @@ function HeroPage() {
   };
   let checkPath = localStorage.getItem("currentPathLocation");
     
-  
 
   return (
     <>
