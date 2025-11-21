@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense, lazy } from "react";
 import { useLOIData, useUserPopupStore } from "../../store";
 import styles from "../AvatarCreation/AvatarCreation.module.css";
 import SceneCanvas from "./SceneCanvas";
 import { useNavigate } from "react-router-dom";
 import BackIcon from "../../Icons/BackIcon";
 import { UpdateTimeline } from "../../Components/Timeline/UpdateTImeLine";
-import AvatarViewer from "../AvatarViewer/AvatarViewer";
+import PageLoader from "../../Components/Loader/PageLoader";
+
+const AvatarViewer = lazy(() => import("../AvatarViewer/AvatarViewer"));
 
 function AvatarCreation({setEditPage}) {
   const { selectedData, setSelectedData } = useLOIData();
@@ -149,7 +151,11 @@ function AvatarCreation({setEditPage}) {
 
     <div className={styles.ContainerContent}>
     {activeState == "Avatar" && <SceneCanvas setActiveState={()=>{setActiveState("Avatarview")}}/>}
-    {activeState == "Avatarview" && <AvatarViewer backFunction={()=>backFunction()}/>}
+    {activeState == "Avatarview" && (
+      <Suspense fallback={<PageLoader />}>
+        <AvatarViewer backFunction={()=>backFunction()}/>
+      </Suspense>
+    )}
     </div>
       </div>
     </div>

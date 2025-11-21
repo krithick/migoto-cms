@@ -39,10 +39,10 @@ function AvatarSelectionCard({ data, setSelectedId, selectedId,currentPage }) {
           </div>}
           {currentPage!="avatarSelection"&&
           <div className={styles.titles}>
-            <div >Title</div>
+            <div>Title</div>
             <div title={data?.title?.replaceAll(/[_-]/g, " ")}>{data?.title?.length > 25 ? data?.title?.slice(0, 25)?.replaceAll(/[_-]/g, " ") + "..." : data?.title?.replaceAll(/[_-]/g, " ")}</div>
               {/* <div>{data?.title?.replaceAll(/[_-]/g, " ")}</div> */}
-            </div>          
+            </div>
           }
           <div
             className={`${

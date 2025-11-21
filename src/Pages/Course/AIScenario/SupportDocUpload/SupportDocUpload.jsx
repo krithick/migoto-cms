@@ -9,6 +9,7 @@ import AvatarCard from "../../../../Components/ModesComponent/AvatarCard";
 import { Button } from "antd";
 import FileCard from "../../DocUploadFlow/FileCard/FileCard";
 import PdfIcon from "../../../../Icons/PdfIcon";
+import RemoveButtonIcon from "../../../../Icons/RemoveButtonIcon";
 
 function SupportDocUpload() {
   let [data, setData] = useState([]);
@@ -18,12 +19,18 @@ function SupportDocUpload() {
 
 
   const handleFileChange = (event) => {
-    setSelectedData("supportDocs",[])
-    const files = Array.from(event.target.files); // Convert FileList to array
+    const files = Array.from(event.target.files);
     if (!files.length) return;
 
-    const newUploads = files.map((file) => ({
-      id: Date.now() + Math.random(), // unique ID
+    const existingSupportDocs = selectedData["supportDocs"] || [];
+    
+    // Filter out files that already exist by name
+    const newFiles = files.filter(file => 
+      !existingSupportDocs.some(existingFile => existingFile.name === file.name)
+    );
+
+    const newUploads = newFiles.map((file) => ({
+      id: Date.now() + Math.random(),
       file,
       name: file.name,
       size: file.size,
@@ -34,9 +41,18 @@ function SupportDocUpload() {
 
     if (uploadDoc) {
       setDocUploads((prev) => [...prev, ...newUploads]);
-      const existingSupportDocs = selectedData["supportDocs"] || [];
-      setSelectedData("supportDocs", [...existingSupportDocs, ...files]);
+      setSelectedData("supportDocs", [...existingSupportDocs, ...newFiles]);
     }
+  };
+
+  const removeDocuments = (fileName) => {
+    // Remove from docUploads
+    setDocUploads(prev => prev.filter(doc => doc.name !== fileName));
+    
+    // Remove from supportDocs
+    const existingSupportDocs = selectedData["supportDocs"] || [];
+    const updatedDocs = existingSupportDocs.filter(doc => doc.name !== fileName);
+    setSelectedData("supportDocs", updatedDocs);
   };
 
   return (
@@ -109,8 +125,15 @@ function SupportDocUpload() {
                           <div className={styles.header}>
                             Document Title
                           </div>
-                          <div className={styles.fileName}>{val.name}</div>
-                         
+                          <div className={styles.fileName}>{val?.name}</div>
+                        </div>
+                        <div
+                          className={styles.removePart}
+                          onClick={() => {
+                            removeDocuments(val?.name);
+                          }}
+                        >
+                          <RemoveButtonIcon />
                         </div>
                       </div>
 
