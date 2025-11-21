@@ -211,12 +211,16 @@ function UserScenario({val,Swap}) {
               )}
             </div>}
             <div className={styles.detailBoxMain}>
-              {
+              {data?.length>0 ?
                 data?.map((item, index) => {
                   return (
                     <Card data={item} key={index} currentPage={currentPage} />
                   );
-                })}
+                })
+                :
+                (
+                    <p className={styles.txtCenter}>No Scenario have been assigned to this user.</p>
+                )}
             </div>
           </div>
           <div className={styles.footer}>

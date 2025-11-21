@@ -134,7 +134,7 @@ export default function UserCourse({val,Swap}) {
                   </div>
 
                   <div className={styles.content2CardsBox}>
-                    {data && data.map((item, index) => {
+                    {data?.length > 0 ? data.map((item, index) => {
                       return (
                         <Card
                           data={item}
@@ -142,7 +142,11 @@ export default function UserCourse({val,Swap}) {
                           currentPage={currentPage}
                         />
                       );
-                    })}
+                    }) 
+                  :
+                  (
+                    <p className={styles.txtCenter}>No courses have been assigned to this user.</p>
+                  )}
                   </div>
                 </div>
                 <div className={styles.footer}>

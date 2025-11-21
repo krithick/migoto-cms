@@ -7,6 +7,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  top: 0;
+  left: 0;
 }
 
 .bulkPopup{
@@ -73,11 +75,13 @@
     flex-direction: column;
     justify-content: center;
     padding-left: 4%;
+    font-size: clamp(0.8rem, 0.8vw, 1rem);
+
 }
 
 .Count{
     color: #28A745;
-    
+    font-size: clamp(0.8rem, 0.8vw, 1rem);
 }
 
 .buttonGroup {
