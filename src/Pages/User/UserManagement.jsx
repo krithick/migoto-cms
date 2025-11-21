@@ -209,8 +209,8 @@ function UserManagement() {
                 </tr>
               </thead>
               <tbody>
-                {data.length > 0 ? (
-                  data.map((_, index) => (
+                {data?.length > 0 ? (
+                  data?.map((_, index) => (
                     <tr key={`row-${index + 1}`}>
                       <td className={styles.center}>{index + 1}</td>
                       <td>{_.username}</td>

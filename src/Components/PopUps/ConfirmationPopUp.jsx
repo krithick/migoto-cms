@@ -50,7 +50,7 @@ function ConfirmationPopUp() {
       image:`${import.meta.env.VITE_APP_URL}UnassignPopUp.png`,
       onClick:"createModule",
       subTitle: "Selected Course",
-      msg: isPreview?.msg ? isPreview.msg?.slice(0, 30)?.replaceAll(/[_-]/g, " ") + "..." : ""
+      msg: isPreview?.msg ? isPreview.msg : ""
     },
     UserModuleUnassign:{
       current:"Module",
@@ -60,7 +60,7 @@ function ConfirmationPopUp() {
       image:`${import.meta.env.VITE_APP_URL}UnassignPopUp.png`,
       onClick:"createModule",
       subTitle: "Selected Module",
-      msg: isPreview?.msg ? isPreview.msg?.slice(0, 30)?.replaceAll(/[_-]/g, " ") + "..." : ""
+      msg: isPreview?.msg ? isPreview.msg : ""
     },
     UserScenarioUnassign:{
       current:"Module",
@@ -70,7 +70,7 @@ function ConfirmationPopUp() {
       image:`${import.meta.env.VITE_APP_URL}UnassignPopUp.png`,
       onClick:"createModule",
       subTitle: "Selected Scenario",
-      msg: isPreview?.msg ? isPreview.msg?.slice(0, 30)?.replaceAll(/[_-]/g, " ") + "..." : ""
+      msg: isPreview?.msg ? isPreview.msg: ""
     },
     deleteAvatar:{
       color: "red",
