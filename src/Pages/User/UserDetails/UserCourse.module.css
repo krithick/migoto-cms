@@ -448,3 +448,8 @@
   outline: none;
   /* padding: 1vh 1.2vw; */
 }
+.txtCenter{
+  align-self: center;
+  margin-left: 30%;
+  margin-top: 20%;
+}

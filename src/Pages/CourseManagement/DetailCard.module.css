@@ -57,6 +57,7 @@
   font-size: clamp(0.5rem, 0.6vw, 0.6rem);
   font-weight: 450;
   color: #666666;
+  cursor: pointer;
 }
 .snipContent {
   /* font-size: clamp(0.7rem, 0.775vw, 0.825rem); */
@@ -71,6 +72,7 @@
 .descContent {
   font-size: clamp(0.6rem, 0.7vw, 0.7rem);
   font-weight: 500;
+  cursor: pointer;
 }
 
 .editBtn {

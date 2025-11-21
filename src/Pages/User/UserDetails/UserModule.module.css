@@ -7,10 +7,6 @@
   gap: 1%; 
 }
 
-.txtCenter{
-  align-self: center;
-  margin-left: 30%;
-}
 
 .mainBox {
   background-color: #ffffff;
@@ -272,4 +268,8 @@
 }
 .textCenter{
   text-align: center;
+}
+.txtCenter{
+  align-self: center;
+  margin-left: 30%;
 }

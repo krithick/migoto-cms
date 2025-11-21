@@ -74,22 +74,26 @@ function DetailCard({courseDetail, currentPage, setCurrentPage,setPage}) {
                             {/* <p className={styles.snipContent}>{courseDetail?.creater_role?courseDetail?.creater_role:courseDetail?.created_by}</p> */}
                         </div>
                         <div className={styles.snip}>
-                            <p className={styles.snipTitle}>{suitableName[currentPage].detailHeader}Code</p>
-                            <p className={styles.snipContent}>{courseDetail?.id?.slice(courseDetail?.id?.length-5)}</p>
+                            <p className={styles.snipTitle}>{suitableName[currentPage].detailHeader}Created At</p>
+                            <p className={styles.snipContent}>{courseDetail?.created_at ? new Date(courseDetail?.created_at).toLocaleDateString(): "-"}</p>
+                        </div>
+                        <div className={styles.snip}>
+                            <p className={styles.snipTitle}>{suitableName[currentPage].detailHeader}Updated At</p>
+                            <p className={styles.snipContent}>{courseDetail?.updated_at ? new Date(courseDetail?.updated_at).toLocaleDateString(): "-"}</p>
                         </div>
                 </div>
 
                 <div className={styles.descriptionBox}>
                     <p className={styles.descTitle}>Description</p>
-                    <p className={styles.descContent}>
-                        {courseDetail?.description}
+                    <p className={styles.descContent} title={courseDetail?.description?.replaceAll(/[_-]/g, " ")}>
+                        {courseDetail?.description?.length > 70 ?courseDetail?.description?.slice(0, 70)?.replaceAll(/[_-]/g, " ") + "..." :courseDetail?.description?.replaceAll(/[_-]/g, " ")}
                     </p>
                 </div>
                 <div className={styles.btnGrp}>
                     {/* <button className={styles.assign} onClick={()=>{}}>Assign</button> */}
                     {(userEmpId==courseDetail?.created_by)&& currentPage!="showAvatarInteraction" &&<button onClick={()=>{setCurrentPage(suitableName[currentPage].edit),setPage("baseDocument"),localStorage.setItem("flow",suitableName[currentPage].flow)}}>Edit <EditIcon/></button>}
-                    {(userEmpId==courseDetail?.created_by)&& (currentPage=="showAvatarInteraction"&& getSessionStorage("template_id"))&&<button onClick={()=>{setCurrentPage(suitableName[currentPage].edit),setPage("baseDocument"),localStorage.setItem("flow",suitableName[currentPage].flow)}}>Edit <EditIcon/></button>}
-                    {(userEmpId==courseDetail?.created_by && (currentPage=="showAvatarInteraction"&& getSessionStorage("template_id")))&&<button onClick={()=>{setCurrentPage(suitableName[currentPage].edit),setPage("editBaseDetail"),localStorage.setItem("flow",suitableName[currentPage].flow)}}>Edit Base Details<EditIcon/></button>}
+                    {(userEmpId==courseDetail?.created_by)&& (currentPage=="showAvatarInteraction"&& getSessionStorage("template_id"))&&<button onClick={()=>{setCurrentPage(suitableName[currentPage].edit),setPage("baseDocument"),localStorage.setItem("flow",suitableName[currentPage].flow)}}>Edit Base Document <EditIcon/></button>}
+                    {(userEmpId==courseDetail?.created_by && (currentPage=="showAvatarInteraction"&& getSessionStorage("template_id")))&&<button onClick={()=>{setCurrentPage(suitableName[currentPage].edit),setPage("editBaseDetail"),localStorage.setItem("flow",suitableName[currentPage].flow)}}>Edit Scenario<EditIcon/></button>}
                     {(userEmpId==courseDetail?.created_by && (currentPage=="showAvatarInteraction"&& getSessionStorage("template_id"))) && <button onClick={()=>{setCurrentPage(suitableName[currentPage].edit),setPage("personaPopUp"),localStorage.setItem("flow",suitableName[currentPage].flow),setSessionStorage("AvatarAssignedTo","all"),setSessionStorage("personaLimit",0)}}>Create avatar<EditIcon/></button>}
                 </div>
             </div>
